@@ -10,7 +10,7 @@
 	
 	<description>
 		The high performance and density marshaller
-    </description>
+	</description>
 
 	<developers>
 		<developer>
@@ -26,11 +26,11 @@
 		</license>
 	</licenses>
 
-    <scm>
-        <connection>scm:git:git://github.com/mkobayas/minimum-marshaller.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/mkobayas/minimum-marshaller.git</developerConnection>
-        <url>https://github.com/mkobayas/minimum-marshaller</url>
-    </scm>
+	<scm>
+		<connection>scm:git:git://github.com/mkobayas/minimum-marshaller.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/mkobayas/minimum-marshaller.git</developerConnection>
+		<url>https://github.com/mkobayas/minimum-marshaller</url>
+	</scm>
     
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
