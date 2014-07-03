@@ -1,0 +1,37 @@
+<minimum-marshaller>
+
+    <!--
+     System class mapping 0-999のidはシステムで利用します。
+     User classは 1000 以降のidを利用してください。
+     最大値は 2^16-1 = 65535 です。
+    -->    
+    
+	<class-mapping id="1001" class="org.mk300.marshal.minimum.test.pojo.POJO001"/>
+	<class-mapping id="1002" class="org.mk300.marshal.minimum.test.pojo.POJO005"/>
+	<class-mapping id="1003" class="org.mk300.marshal.minimum.test.pojo.POJO00A"/>
+	<class-mapping id="1004" class="org.mk300.marshal.minimum.test.pojo.POJO00B"/>
+	<class-mapping id="1005" class="org.mk300.marshal.minimum.test.pojo.POJO00C"/>
+	<class-mapping id="1006" class="org.mk300.marshal.minimum.test.pojo.POJO00D"/>
+	<class-mapping id="1007" class="org.mk300.marshal.minimum.test.pojo.POJO00E"/>
+	<class-mapping id="1008" class="org.mk300.marshal.minimum.test.pojo.POJO00F"/>
+	<class-mapping id="1009" class="org.mk300.marshal.minimum.test.pojo.POJO00G"/>
+	<class-mapping id="1010" class="org.mk300.marshal.minimum.test.pojo.POJO00H"/>
+	<class-mapping id="1011" class="org.mk300.marshal.minimum.test.pojo.POJO00I"/>
+	<class-mapping id="1012" class="org.mk300.marshal.minimum.test.pojo.POJO00J"/>
+	<class-mapping id="1013" class="org.mk300.marshal.minimum.test.pojo.POJO00K"/>
+	<class-mapping id="1014" class="org.mk300.marshal.minimum.test.pojo.POJO010"/>
+	<class-mapping id="1015" class="org.mk300.marshal.minimum.test.pojo.POJO020"/>
+	<class-mapping id="1016" class="org.mk300.marshal.minimum.test.pojo.POJO050"/>
+	<class-mapping id="1017" class="org.mk300.marshal.minimum.test.pojo.POJO100"/>
+	<class-mapping id="1018" class="org.mk300.marshal.minimum.test.pojo.VariableFieldObject"/>
+	
+	<!-- 
+	　追加で読み込む設定ファイルを指定します。
+	　以下の記述は省略可能で、その場合は、本設定ファイルに記述されたclass-mappingで初期化されます。
+	 　また、逆に、class-mappingを書かずに、以下のadditional-configだけを並べて設定ファイルを
+	 　作ることも可能です。
+	 -->
+	<additional-config config-file="marshaller-config2.xml"/>
+	<additional-config config-file="marshaller-config3.xml"/>
+	
+</minimum-marshaller>

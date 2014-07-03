@@ -1,0 +1,11 @@
+<minimum-marshaller>
+
+    <!--
+     System class mapping 0-999のidはシステムで利用します。
+     User classは 1000 以降のidを利用してください。
+          最大値は 2^16-1 = 65535 です。   
+    -->
+	<class-mapping id="65535" class="org.mk300.marshal.minimum.test.pojo.PrimitiveWrapperData"/>
+	
+	
+</minimum-marshaller>

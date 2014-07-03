@@ -1,0 +1,122 @@
+<!-- 
+ * Copyright 2014 Masazumi Kobayashi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<minimum-marshaller>
+
+    <!--
+     System class mapping 0-999のidはシステムで利用します。
+     User classは 1000 以降のidを利用してください。
+     0 はnullを意味しています。
+     
+    -->
+    
+	<class-mapping id="11" handler="org.mk300.marshal.minimum.handler.StringHandler"     class="java.lang.String"/>
+	<class-mapping id="12" handler="org.mk300.marshal.minimum.handler.DateHandler"       class="java.util.Date" />
+	<class-mapping id="13" handler="org.mk300.marshal.minimum.handler.BigDecimalHandler" class="java.math.BigDecimal" />
+	<class-mapping id="14" handler="org.mk300.marshal.minimum.handler.BigIntegerHandler" class="java.math.BigInteger" />
+	<class-mapping id="15" handler="org.mk300.marshal.minimum.handler.SqlDateHandler"       class="java.sql.Date" />
+	<class-mapping id="16" handler="org.mk300.marshal.minimum.handler.SqlTimeHandler"       class="java.sql.Time" />
+	<class-mapping id="17" handler="org.mk300.marshal.minimum.handler.SqlTimestampHandler"  class="java.sql.Timestamp" />
+	<class-mapping id="18" handler="org.mk300.marshal.minimum.handler.AtomicIntegerHandler"   class="java.util.concurrent.atomic.AtomicInteger" />
+	<class-mapping id="19" handler="org.mk300.marshal.minimum.handler.AtomicLongHandler"      class="java.util.concurrent.atomic.AtomicLong" />
+	<class-mapping id="20" handler="org.mk300.marshal.minimum.handler.AtomicBooleanHandler"   class="java.util.concurrent.atomic.AtomicBoolean" />
+	<class-mapping id="21" handler="org.mk300.marshal.minimum.handler.AtomicReferenceHandler" class="java.util.concurrent.atomic.AtomicReference" />
+	<class-mapping id="22" handler="org.mk300.marshal.minimum.handler.AtomicStampedReferenceHandler" class="java.util.concurrent.atomic.AtomicStampedReference" />
+	
+	<!-- TODO java.util.concurrent.atomic.AtomicIntegerArray -->
+	<!-- TODO java.util.concurrent.atomic.AtomicLongArray -->
+	<!-- TODO java.util.concurrent.atomic.AtomicReferenceArray -->
+	
+	
+	<!-- Collection (List/Set) -->
+	<class-mapping id="101" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.ArrayList"/>
+	<class-mapping id="102" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.LinkedList" />
+	<class-mapping id="103" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.CopyOnWriteArrayList"/>
+	<class-mapping id="105" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.Vector"/>
+	<class-mapping id="106" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.HashSet"/>
+	<class-mapping id="107" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.CopyOnWriteArraySet"/>
+	<class-mapping id="108" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.LinkedHashSet"/>
+	<class-mapping id="109" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.ArrayDeque"/>
+	<class-mapping id="110" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.ConcurrentLinkedDeque"/>
+	<class-mapping id="111" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.ConcurrentLinkedQueue"/>
+	<class-mapping id="112" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.LinkedTransferQueue"/>
+	
+	<!-- TODO java.util.concurrent.ArrayBlockingQueue キャパシティが必要-->
+	<!-- TODO java.util.concurrent.LinkedBlockingDeque キャパシティが必要-->
+	<!-- TODO java.util.concurrent.LinkedBlockingQueue キャパシティが必要-->
+	<!-- TODO java.util.PriorityQueue Comparatorが必要-->
+	<!-- TODO java.util.Stack 順序が逆になる-->
+	<!-- TODO java.util.concurrent.SynchronousQueue fairが必要、このクラスは内部要素を持たない-->
+	<!-- Unsupport java.util.concurrent.DelayQueue  -->
+	
+	<!-- TODO SortedSet Comparatorが必要-->
+	<!-- 
+	<class-mapping id="xx" handler="org.mk300.marshal.minimum.handler.SortedSetHandler" class="java.util.concurrent.ConcurrentSkipListSet"/>
+	<class-mapping id="xx" handler="org.mk300.marshal.minimum.handler.SortedSetHandler" class="java.util.TreeSet"/>
+	 -->
+	
+	<!-- TODO EnumSet -->
+	<!-- TODO Enum -->
+	
+	<!-- Map -->
+	<class-mapping id="201" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.HashMap"/>
+	<class-mapping id="202" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.concurrent.ConcurrentHashMap"/>
+	<class-mapping id="203" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.IdentityHashMap"/>
+	<class-mapping id="204" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.Properties"/>
+	<class-mapping id="205" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.LinkedHashMap"/>
+	
+	
+	<!-- TODO SortedMap -->
+	<!-- 
+	java.util.concurrent.ConcurrentSkipListMap
+	LinkedHashMap??
+	java.util.TreeMap
+	 -->
+	 
+	
+
+	<class-mapping id="301" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Integer"/>
+	<class-mapping id="302" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Long"/>
+	<class-mapping id="303" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Short"/>
+	<class-mapping id="304" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Boolean"/>
+	<class-mapping id="305" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Double"/>
+	<class-mapping id="306" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Float"/>
+	<class-mapping id="307" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Character"/>
+	<class-mapping id="308" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Byte"/>
+	
+	
+	<!-- boolean[] -->
+	<class-mapping id="401" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[B"/>
+	<!-- short[] -->
+	<class-mapping id="402" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[S"/>
+	<!-- int[] -->
+	<class-mapping id="403" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[I"/>
+	<!-- long[] -->
+	<class-mapping id="404" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[J"/>
+	<!-- boolean[] -->
+	<class-mapping id="405" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[Z"/>
+	<!-- float[] -->
+	<class-mapping id="406" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[F"/>
+	<!-- double[] -->
+	<class-mapping id="407" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[D"/>
+	<!-- char[] -->
+	<class-mapping id="408" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[C"/>
+	<!-- Object[] -->
+	<class-mapping id="409" handler="org.mk300.marshal.minimum.handler.ObjectArrayHandler"    class="[Ljava.lang.Object;"/>
+	<!-- String[] -->	
+	<class-mapping id="410" handler="org.mk300.marshal.minimum.handler.StringArrayHandler"    class="[Ljava.lang.String;"/>
+	
+</minimum-marshaller>
