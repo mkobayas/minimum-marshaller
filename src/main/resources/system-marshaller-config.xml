@@ -74,13 +74,13 @@
 	<class-mapping id="202" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.concurrent.ConcurrentHashMap"/>
 	<class-mapping id="203" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.IdentityHashMap"/>
 	<class-mapping id="204" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.Properties"/>
+	<!-- Can't handle accessOrder in LinkedHashMap -->
 	<class-mapping id="205" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.LinkedHashMap"/>
 	
 	
 	<!-- TODO SortedMap -->
 	<!-- 
 	java.util.concurrent.ConcurrentSkipListMap
-	LinkedHashMap??
 	java.util.TreeMap
 	 -->
 	 
