@@ -29,24 +29,18 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  *  @author mkobayas@redhat.com
  *
  */
-public class BigDecimalHandler implements MarshalHandler {
+public class BigDecimalHandler implements MarshalHandler<BigDecimal> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		BigDecimal number = (BigDecimal)o;
-		
+	public void writeObject(OOutputStream out, BigDecimal number) throws IOException {
 		String str = number.toString();
-		
 		out.writeUTF(str);
-		
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz)
-			throws IOException {
+	public BigDecimal readObject(OInputStream in, Class<BigDecimal> clazz) throws IOException {
 		String str = in.readUTF();
 		BigDecimal number = new BigDecimal(str);
-		
 		return number;
 	}
 

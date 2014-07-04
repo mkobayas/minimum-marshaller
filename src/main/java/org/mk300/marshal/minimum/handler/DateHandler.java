@@ -29,16 +29,15 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class DateHandler implements MarshalHandler {
+public class DateHandler implements MarshalHandler<Date> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		Date date = (Date)o;
+	public void writeObject(OOutputStream out, Date date) throws IOException {
 		out.writeLong(date.getTime());
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public Date readObject(OInputStream in, Class<Date> clazz) throws IOException {
 		long time = in.readLong();
 		Date date = new Date(time);
 		return date;

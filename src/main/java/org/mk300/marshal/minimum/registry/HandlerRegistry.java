@@ -31,6 +31,7 @@ import org.mk300.marshal.minimum.MarshalHandler;
  * @author mkobayas@redhat.com
  *
  */
+@SuppressWarnings("rawtypes")
 public class HandlerRegistry {
 	
 	private static Map<Short, MarshalHandler> handlerMap = new HashMap<Short, MarshalHandler>();

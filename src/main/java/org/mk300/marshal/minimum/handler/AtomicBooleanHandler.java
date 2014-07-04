@@ -29,16 +29,15 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class AtomicBooleanHandler implements MarshalHandler {
+public class AtomicBooleanHandler implements MarshalHandler<AtomicBoolean> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		AtomicBoolean number = (AtomicBoolean)o;		
-		out.writeBoolean(number.get());	
+	public void writeObject(OOutputStream out, AtomicBoolean b) throws IOException {
+		out.writeBoolean(b.get());	
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public AtomicBoolean readObject(OInputStream in, Class<AtomicBoolean> clazz) throws IOException {
 		boolean bool = in.readBoolean();
 		AtomicBoolean b = new AtomicBoolean(bool);
 		return b;

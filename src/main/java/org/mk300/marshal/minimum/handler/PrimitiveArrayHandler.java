@@ -29,6 +29,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
+@SuppressWarnings("rawtypes")
 public class PrimitiveArrayHandler implements MarshalHandler {
 
 	private static final Class<? extends byte[]> byteArrayClass = new byte[0].getClass();
@@ -97,7 +98,7 @@ public class PrimitiveArrayHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz)
+	public Object readObject(OInputStream in, Class clazz)
 			throws IOException {
 
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);

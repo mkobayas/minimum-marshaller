@@ -29,18 +29,17 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class AtomicReferenceHandler implements MarshalHandler {
+@SuppressWarnings("rawtypes")
+public class AtomicReferenceHandler implements MarshalHandler<AtomicReference> {
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		AtomicReference ref = (AtomicReference)o;		
+	public void writeObject(OOutputStream out, AtomicReference ref) throws IOException {	
 		out.writeObject(ref.get());	
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public AtomicReference readObject(OInputStream in, Class<AtomicReference> clazz) throws IOException {
 		Object obj = in.readObject();
 		AtomicReference ref = new AtomicReference(obj);
 		return ref;

@@ -17,6 +17,7 @@ import test.beans.NewClassModifyBean;
 import test.beans.OldClassModifyBean;
 import test.beans.ParentBean;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ModifyClassTest {
 
 	static short classId = (short)29999;
@@ -24,7 +25,6 @@ public class ModifyClassTest {
 	static MinimumMarshaller marshaller  = new MinimumMarshaller();
 	
 	
-	@SuppressWarnings({"unchecked" })
 	@Test
 	public void testOldToNew() throws Exception {
 		// HandlerRegistryの内容を強制的に書き換えて、別のクラス定義で読み込む。
@@ -87,8 +87,6 @@ public class ModifyClassTest {
 	}
 
 	
-
-	@SuppressWarnings({"unchecked" })
 	@Test
 	public void testNewToOld() throws Exception {
 		// HandlerRegistryの内容を強制的に書き換えて、別のクラス定義で読み込む。
@@ -152,9 +150,7 @@ public class ModifyClassTest {
 	}
 	
 	
-	
 
-	@SuppressWarnings({"unchecked" })
 	@Test
 	public void testNestOldToNew() throws Exception {
 		// HandlerRegistryの内容を強制的に書き換えて、別のクラス定義で読み込む。
@@ -235,8 +231,6 @@ public class ModifyClassTest {
 	
 	
 
-
-	@SuppressWarnings({"unchecked" })
 	@Test
 	public void testNestNewToOld() throws Exception {
 		// HandlerRegistryの内容を強制的に書き換えて、別のクラス定義で読み込む。

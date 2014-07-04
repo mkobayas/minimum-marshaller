@@ -29,15 +29,12 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class StringArrayHandler implements MarshalHandler {
+public class StringArrayHandler implements MarshalHandler<String[]> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		String[] array = (String[])o;
-		
+	public void writeObject(OOutputStream out, String[] array) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, array.length);
 		for(int i=0; i< array.length; i++ ) {
-			
 			if(array[i] == null) {
 				out.writeByte(0);
 			} else if(array[i].length() < 20000) {
@@ -53,7 +50,7 @@ public class StringArrayHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public String[] readObject(OInputStream in, Class<String[]> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		
 		String[] array = new String[size];

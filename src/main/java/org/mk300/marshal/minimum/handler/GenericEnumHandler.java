@@ -29,19 +29,18 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class GenericEnumHandler implements MarshalHandler {
+@SuppressWarnings("rawtypes")
+public class GenericEnumHandler implements MarshalHandler<Enum> {
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		Enum en = (Enum)o;
-		NaturalNumberIoHelper.writeNaturalNumber(out, en.ordinal());
+	public void writeObject(OOutputStream out, Enum e) throws IOException {
+		NaturalNumberIoHelper.writeNaturalNumber(out, e.ordinal());
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public Enum readObject(OInputStream in, Class<Enum> clazz) throws IOException {
 		int o = NaturalNumberIoHelper.readNaturalNumber(in);
-		Object e = clazz.getEnumConstants()[o];
+		Enum e = clazz.getEnumConstants()[o];
 		return e;
 	}
 

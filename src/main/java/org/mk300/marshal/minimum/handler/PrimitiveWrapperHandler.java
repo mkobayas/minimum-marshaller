@@ -28,6 +28,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
+@SuppressWarnings("rawtypes")
 public class PrimitiveWrapperHandler implements MarshalHandler {
 
 	@Override
@@ -60,8 +61,7 @@ public class PrimitiveWrapperHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> c)
-			throws IOException {
+	public Object readObject(OInputStream in, Class c) throws IOException {
 		
 		if(c == Integer.class){
 			return in.readInt();

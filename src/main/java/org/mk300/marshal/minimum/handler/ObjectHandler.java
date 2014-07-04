@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public final class ObjectHandler implements MarshalHandler {
+public final class ObjectHandler implements MarshalHandler<Object> {
 
 	/**
 	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタの上限
@@ -178,7 +178,7 @@ public final class ObjectHandler implements MarshalHandler {
 	//   従って、バイナリの最後のほうが切り捨てられる。
 	
 	@Override
-	public final Object readObject(OInputStream in, Class<?> clazz) {
+	public final Object readObject(OInputStream in, Class<Object> clazz) {
 		Field currentProcessfeild = null; // エラー時のメッセージ出力用。
 		
 		try {

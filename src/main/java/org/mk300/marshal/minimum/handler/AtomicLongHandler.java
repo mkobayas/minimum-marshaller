@@ -29,16 +29,15 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class AtomicLongHandler implements MarshalHandler {
+public class AtomicLongHandler implements MarshalHandler<AtomicLong> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		AtomicLong number = (AtomicLong)o;		
+	public void writeObject(OOutputStream out, AtomicLong number) throws IOException {
 		out.writeLong(number.get());	
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public AtomicLong readObject(OInputStream in, Class<AtomicLong> clazz) throws IOException {
 		long num = in.readLong();
 		AtomicLong number = new AtomicLong(num);
 		return number;

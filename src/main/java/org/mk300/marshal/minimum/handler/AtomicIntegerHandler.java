@@ -29,16 +29,15 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class AtomicIntegerHandler implements MarshalHandler {
+public class AtomicIntegerHandler implements MarshalHandler<AtomicInteger> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		AtomicInteger number = (AtomicInteger)o;		
+	public void writeObject(OOutputStream out, AtomicInteger number) throws IOException {	
 		out.writeInt(number.get());	
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public AtomicInteger readObject(OInputStream in, Class<AtomicInteger> clazz) throws IOException {
 		int num = in.readInt();
 		AtomicInteger number = new AtomicInteger(num);
 		return number;

@@ -30,26 +30,21 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class BigIntegerHandler implements MarshalHandler {
+public class BigIntegerHandler implements MarshalHandler<BigInteger> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		BigInteger number = (BigInteger)o;
-		
+	public void writeObject(OOutputStream out, BigInteger number) throws IOException {
 		byte[] bytes = number.toByteArray();
 		NaturalNumberIoHelper.writeNaturalNumber(out, bytes.length);
 		out.write(bytes);
-		
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
-		
+	public BigInteger readObject(OInputStream in, Class<BigInteger> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		byte[] bytes = new byte[size];
 		in.readFully(bytes);
 		BigInteger number = new BigInteger(bytes);
-		
 		return number;
 	}
 }

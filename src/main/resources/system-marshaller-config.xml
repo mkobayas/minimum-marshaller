@@ -55,6 +55,7 @@
 	<class-mapping id="110" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.ConcurrentLinkedDeque"/>
 	<class-mapping id="111" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.ConcurrentLinkedQueue"/>
 	<class-mapping id="112" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.LinkedTransferQueue"/>
+	<class-mapping id="113" handler="org.mk300.marshal.minimum.handler.TreeSetHandler" class="java.util.TreeSet"/>
 	
 	<!-- TODO java.util.concurrent.ArrayBlockingQueue キャパシティが必要-->
 	<!-- TODO java.util.concurrent.LinkedBlockingDeque キャパシティが必要-->
@@ -66,8 +67,7 @@
 	
 	<!-- TODO SortedSet Comparatorが必要-->
 	<!-- 
-	<class-mapping id="xx" handler="org.mk300.marshal.minimum.handler.SortedSetHandler" class="java.util.concurrent.ConcurrentSkipListSet"/>
-	<class-mapping id="xx" handler="org.mk300.marshal.minimum.handler.SortedSetHandler" class="java.util.TreeSet"/>
+	<class-mapping id="xx" handler="org.mk300.marshal.minimum.handler.ConcurrentSkipListSetHandler" class="java.util.concurrent.ConcurrentSkipListSet"/>
 	 -->
 	
 	<!-- TODO EnumSet -->

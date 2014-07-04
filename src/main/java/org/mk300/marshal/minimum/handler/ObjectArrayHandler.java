@@ -29,12 +29,10 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class ObjectArrayHandler implements MarshalHandler {
+public class ObjectArrayHandler implements MarshalHandler<Object[]> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		Object[] array = (Object[]) (Object[]) o;
-
+	public void writeObject(OOutputStream out, Object[] array) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, array.length);
 		for (Object element : array) {
 			out.writeObject(element);
@@ -42,8 +40,7 @@ public class ObjectArrayHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
-
+	public Object[] readObject(OInputStream in, Class<Object[]> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		Object[] objectArray = new Object[size];
 

@@ -18,9 +18,8 @@ package org.mk300.marshal.minimum.handler;
 
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
@@ -33,38 +32,29 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  *
  */
 @SuppressWarnings("rawtypes")
-public class MapHandler implements MarshalHandler<Map> {
+public class TreeSetHandler implements MarshalHandler<TreeSet> {
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void writeObject(OOutputStream out, Map map) throws IOException {
-		NaturalNumberIoHelper.writeNaturalNumber(out, map.size());
-		
-		for(Entry element : (Set<Map.Entry>)map.entrySet()) {
-			out.writeObject(element.getKey());
-			out.writeObject(element.getValue());
+	public void writeObject(OOutputStream out, TreeSet treeSet) throws IOException {
+		out.writeObject(treeSet.comparator());
+		NaturalNumberIoHelper.writeNaturalNumber(out, treeSet.size());
+		for(Object element : treeSet) {
+			out.writeObject(element);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map readObject(OInputStream in, Class<Map> clazz) throws IOException {
-		Map map;
-		try {
-			map = clazz.newInstance();
-		} catch (Exception e) {
-			throw new IOException("Unable instantiate: " + clazz, e);
-		}
+	public TreeSet readObject(OInputStream in, Class<TreeSet> clazz) throws IOException {
+		Comparator comparator = (Comparator)in.readObject();
+		TreeSet treeSet = new TreeSet(comparator);
 		
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
-		
 		for(int i=0 ; i<size ; i++) {
-			Object key = in.readObject();
-			Object value = in.readObject();
-			map.put(key, value);
+			treeSet.add(in.readObject());
 		}
 		
-		return map;
+		return treeSet;
 	}
 
 }

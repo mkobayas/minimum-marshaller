@@ -28,12 +28,10 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class StringHandler implements MarshalHandler {
+public class StringHandler implements MarshalHandler<String> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		String s = (String)o;
-		
+	public void writeObject(OOutputStream out, String s) throws IOException {
 		// DataOutputのwriteUTFはUTF-8エンコード後のバイトサイズが65535以下でなければいけない
 		//  UTF-8は、1-3バイトの可変なので、全て3バイトと想定して閾値を20000文字とする。
 		//  なお、s.length()の戻り値は、サローゲートペアの場合、１文字でも2を返却するので
@@ -50,7 +48,7 @@ public class StringHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public String readObject(OInputStream in, Class<String> clazz) throws IOException {
 		String s = null;
 		
 		byte marker = in.readByte();

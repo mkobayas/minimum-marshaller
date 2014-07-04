@@ -27,7 +27,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public interface MarshalHandler {
-	public void writeObject(OOutputStream out, Object o) throws IOException;
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException;
+public interface MarshalHandler<T> {
+	public void writeObject(OOutputStream out, T o) throws IOException;
+	public T readObject(OInputStream in, Class<T> clazz) throws IOException;
 }

@@ -30,27 +30,23 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class CollectionHandler implements MarshalHandler {
+@SuppressWarnings("rawtypes")
+public class CollectionHandler implements MarshalHandler<Collection> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		Collection<?> list = (Collection<?>)o;
-		
-
+	public void writeObject(OOutputStream out, Collection list) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, list.size());
-		
 		for(Object element : list) {
 			out.writeObject(element);
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
-		
+	public Collection readObject(OInputStream in, Class<Collection> clazz) throws IOException {
 		Collection collection;
 		try {
-			collection = (Collection)clazz.newInstance();
+			collection = clazz.newInstance();
 		} catch (Exception e) {
 			throw new IOException("Unable instantiate: " + clazz, e);
 		}

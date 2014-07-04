@@ -29,17 +29,16 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  * @author mkobayas@redhat.com
  *
  */
-public class SqlTimestampHandler implements MarshalHandler {
+public class SqlTimestampHandler implements MarshalHandler<Timestamp> {
 
 	@Override
-	public void writeObject(OOutputStream out, Object o) throws IOException {
-		Timestamp timestamp = (Timestamp)o;
+	public void writeObject(OOutputStream out, Timestamp timestamp) throws IOException {
 		out.writeLong(timestamp.getTime());
 		out.writeInt(timestamp.getNanos());
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class<?> clazz) throws IOException {
+	public Timestamp readObject(OInputStream in, Class<Timestamp> clazz) throws IOException {
 		long time = in.readLong();
 		int nano = in.readInt();
 		Timestamp t = new Timestamp(time);
