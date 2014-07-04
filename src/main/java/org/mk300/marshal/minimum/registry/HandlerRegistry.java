@@ -38,7 +38,7 @@ public class HandlerRegistry {
 	private static Map<Short, Class<?>> classMap = new HashMap<Short, Class<?>>();
 
 	public static short ID_NULL = 0;
-
+	public static short ID_ENUM = 1;
 	
 	static {
 		String systemConfigName = System.getProperty("minimum.system.marshaller-config", "system-marshaller-config.xml");

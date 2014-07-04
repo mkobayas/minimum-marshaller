@@ -24,7 +24,9 @@
 	<class-mapping id="1016" class="org.mk300.marshal.minimum.test.pojo.POJO050"/>
 	<class-mapping id="1017" class="org.mk300.marshal.minimum.test.pojo.POJO100"/>
 	<class-mapping id="1018" class="org.mk300.marshal.minimum.test.pojo.VariableFieldObject"/>
-	
+	<class-mapping id="1019" class="org.mk300.marshal.minimum.test.pojo.MyEnum"/>
+	<class-mapping id="1020" class="org.mk300.marshal.minimum.test.pojo.MyEnumObject"/>
+
 	<!-- 
 	　追加で読み込む設定ファイルを指定します。
 	　以下の記述は省略可能で、その場合は、本設定ファイルに記述されたclass-mappingで初期化されます。

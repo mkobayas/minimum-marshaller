@@ -20,8 +20,10 @@
      System class mapping 0-999のidはシステムで利用します。
      User classは 1000 以降のidを利用してください。
      0 はnullを意味しています。
+     1 はenum型で予約されています。
      
     -->
+	<class-mapping id="1" handler="org.mk300.marshal.minimum.handler.GenericEnumHandler" class="java.lang.Enum"/>
     
 	<class-mapping id="11" handler="org.mk300.marshal.minimum.handler.StringHandler"     class="java.lang.String"/>
 	<class-mapping id="12" handler="org.mk300.marshal.minimum.handler.DateHandler"       class="java.util.Date" />

@@ -50,12 +50,20 @@ public final class OOutputStream extends DataOutputStream {
 		}
 
 		Class<?> oClazz = o.getClass();
-		short id = HandlerRegistry.getClassId(oClazz);
-		MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
+		
+		if( oClazz.isEnum()) {
+			short id = HandlerRegistry.getClassId(oClazz);
+			writeShort(id);
 
-		writeShort(id);
-
-		m.writeObject(this, o);
+			MarshalHandler m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
+			m.writeObject(this, o);
+			
+		} else {
+			short id = HandlerRegistry.getClassId(oClazz);
+			MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
+			writeShort(id);
+			m.writeObject(this, o);
+		}
 
 	}
 	

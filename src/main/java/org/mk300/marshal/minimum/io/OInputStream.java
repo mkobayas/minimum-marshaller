@@ -32,7 +32,7 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
 public final class OInputStream extends DataInputStream {
 
 	private final BAInputStream underlayBAIn;
-
+	
 	public OInputStream(InputStream in) {
 		super(in);
 		if (in instanceof BAInputStream) {
@@ -53,8 +53,12 @@ public final class OInputStream extends DataInputStream {
 		MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
 		Class<?> c = HandlerRegistry.getObjClass(id);
 
+		// Enum is handled by special handler.
+		if(c.isEnum()) {
+			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
+		}
+		
 		Object obj = m.readObject(this, c);
-
 		return obj;
 
 	}
