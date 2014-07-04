@@ -42,6 +42,7 @@ public final class OInputStream extends DataInputStream {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public final Object readObject() throws IOException {
 
 		short id = readShort();

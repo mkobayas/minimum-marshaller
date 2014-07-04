@@ -42,6 +42,7 @@ public final class OOutputStream extends DataOutputStream {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public final void writeObject(Object o) throws IOException {
 
 		if (o == null) {
