@@ -80,8 +80,8 @@ public class HandlerRegistry {
 			
 			try {
 				short id = mapping.getId();
-				Class<?> targetClass = Class.forName(mapping.getClassName());
-				Class<?> handlerClass = Class.forName(mapping.getHandlerName());
+				Class<?> targetClass = classLoad(mapping.getClassName());
+				Class<?> handlerClass = classLoad(mapping.getHandlerName());
 				MarshalHandler handler = (MarshalHandler)handlerClass.newInstance();
 				regitster(id, targetClass, handler);
 			} catch (Exception e) {
@@ -136,5 +136,13 @@ public class HandlerRegistry {
 		}
 		
 		return clazz;
+	}
+	
+	private static Class classLoad(String className) throws ClassNotFoundException {
+		try {
+			return Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			return Class.forName(className, true, Thread.currentThread().getContextClassLoader());
+		}
 	}
 }
