@@ -63,16 +63,10 @@
 	<!-- TODO java.util.concurrent.LinkedBlockingDeque キャパシティが必要-->
 	<!-- TODO java.util.concurrent.LinkedBlockingQueue キャパシティが必要-->
 	<!-- TODO java.util.PriorityQueue Comparatorが必要-->
-	<!-- TODO java.util.Stack 順序が逆になる-->
 	<!-- TODO java.util.concurrent.SynchronousQueue fairが必要、このクラスは内部要素を持たない-->
 	<!-- Unsupport java.util.concurrent.DelayQueue  -->
 	
-	<!-- TODO SortedSet Comparatorが必要-->
-	<!-- 
-	 -->
-	
 	<!-- TODO EnumSet -->
-	<!-- TODO Enum -->
 	
 	<!-- Map -->
 	<class-mapping id="201" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.HashMap"/>
