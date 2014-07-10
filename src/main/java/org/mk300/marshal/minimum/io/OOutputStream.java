@@ -85,5 +85,23 @@ public final class OOutputStream extends DataOutputStream {
 		buf[index+2] = (byte) ((intValue >>>  8) & 0xFF);
 		buf[index+3] = (byte) ((intValue >>>  0) & 0xFF);
 	}
+	
+	public final void write(int b) throws IOException {
+		out.write(b);
+		incCount(1);
+	}
+
+	public final void write(byte b[], int off, int len) throws IOException {
+		out.write(b, off, len);
+		incCount(len);
+	}
+
+	private final void incCount(int value) {
+		int temp = written + value;
+		if (temp < 0) {
+			temp = Integer.MAX_VALUE;
+		}
+		written = temp;
+	}
 
 }
