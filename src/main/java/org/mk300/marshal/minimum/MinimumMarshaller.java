@@ -33,18 +33,10 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class MinimumMarshaller {
 	
 	public static byte[] marshal(Object obj, int estimatedSize) throws IOException {
-		BAOutputStream baos = null;
-		
-		try {
-			baos = new BAOutputStream(estimatedSize);
-			OOutputStream oos = new OOutputStream(baos);
-			oos.writeObject(obj);
-			return baos.toByteArray();
-		} finally {
-			if(baos != null) {
-				baos.close();
-			}
-		}
+		BAOutputStream baos = new BAOutputStream(estimatedSize);
+		OOutputStream oos = new OOutputStream(baos);
+		oos.writeObject(obj);
+		return baos.toByteArray();
 	}
 
 	public static byte[] marshal(Object obj) throws IOException {

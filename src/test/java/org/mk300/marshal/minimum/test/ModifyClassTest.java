@@ -22,8 +22,6 @@ public class ModifyClassTest {
 
 	static short classId = (short)29999;
 	static short parentClassId = (short)29998;
-	static MinimumMarshaller marshaller  = new MinimumMarshaller();
-	
 	
 	@Test
 	public void testOldToNew() throws Exception {
