@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import org.mk300.marshal.common.ClassMetaDataRegistry;
+import org.mk300.marshal.common.InfiniteLoopException;
+import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.BAInputStream;
 import org.mk300.marshal.minimum.io.BAOutputStream;
@@ -35,21 +37,6 @@ import org.mk300.marshal.minimum.io.OOutputStream;
  *
  */
 public final class ObjectHandler implements MarshalHandler<Object> {
-
-	/**
-	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタの上限
-	 */
-	private final static int maxNestLimit = 100;
-	
-	/**
-	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタ
-	 */
-	private final static ThreadLocal<Integer> nestCount = new ThreadLocal<Integer>() { 
-		@Override
-		protected Integer initialValue() {
-            return 0;
-		}
-	};
 	
 	@Override
 	public final void writeObject(OOutputStream out, Object o) throws IOException {
@@ -69,13 +56,6 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 				baos = new BAOutputStream();
 				out_tmp = new OOutputStream(baos);
 			}
-			
-			Integer n = nestCount.get();
-			if(n > maxNestLimit) {
-				throw new IOException("無限ループです。 data=" + o);
-			}
-			
-			nestCount.set(n+1);
 			
 			Class<?> oClazz = o.getClass();
 						
@@ -137,15 +117,12 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 				out.writeInt(baos.size());
 				baos.writeTo(out);
 			}
-			
+		
+		} catch (MarshalException e) {
+			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException("バイナリ書き込みで例外発生 data=" + o + ", feild=" + currentProcessfeild ,e);
-		} finally {
-			Integer n = nestCount.get();
-			nestCount.set(n-1);
+			throw new MarshalException("バイナリ書き込みで例外発生 data=" + o + ", feild=" + currentProcessfeild ,e);
 		}
-		
-		
 	}
 
 	// 項目数が多い新しいバージョンのクラス（項目追加は最後尾）でマーシャルされたバイナリを、項目数が少ない古いバージョンのクラスで読み込めるようにする対応。
@@ -160,7 +137,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	//   従って、バイナリの最後のほうが切り捨てられる。
 	
 	@Override
-	public final Object readObject(OInputStream in, Class<Object> clazz) {
+	public final Object readObject(OInputStream in, Class<Object> clazz) throws IOException {
 		Field currentProcessfeild = null; // エラー時のメッセージ出力用。
 		
 		try {
@@ -238,8 +215,10 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 			}
 			
 			return data;
+		} catch (MarshalException e) {
+			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException("バイナリ読み込みで例外発生 data=" + clazz + ", feild=" + currentProcessfeild ,e);
+			throw new MarshalException("バイナリ読み込みで例外発生 data=" + clazz + ", feild=" + currentProcessfeild ,e);
 		}
 		
 	}

@@ -19,6 +19,7 @@ package org.mk300.marshal.minimum.handler;
 
 import java.io.IOException;
 
+import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
@@ -91,7 +92,7 @@ public class PrimitiveArrayHandler implements MarshalHandler {
 				out.writeChar(array[i]);
 			}
 		} else {
-			throw new IOException("不明な配列型です." + o);
+			throw new MarshalException("不明な配列型です." + o);
 		}
 		
 		
@@ -150,7 +151,7 @@ public class PrimitiveArrayHandler implements MarshalHandler {
 			}			
 			return array;
 		} else {
-			throw new IOException("不明な配列型です." + clazz);	
+			throw new MarshalException("不明な配列型です." + clazz);	
 		}
 		
 	}

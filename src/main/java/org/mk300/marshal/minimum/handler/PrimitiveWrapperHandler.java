@@ -19,6 +19,7 @@ package org.mk300.marshal.minimum.handler;
 
 import java.io.IOException;
 
+import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.OInputStream;
 import org.mk300.marshal.minimum.io.OOutputStream;
@@ -81,7 +82,7 @@ public class PrimitiveWrapperHandler implements MarshalHandler {
 			return in.readByte();
 		}
 		
-		throw new RuntimeException("このコードは到達しない.");
+		throw new MarshalException("このコードは到達しない.");
 	}
 
 }

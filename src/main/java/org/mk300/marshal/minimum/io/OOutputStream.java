@@ -20,8 +20,8 @@ package org.mk300.marshal.minimum.io;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 
+import org.mk300.marshal.common.InfiniteLoopException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
@@ -33,6 +33,22 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
 public final class OOutputStream extends DataOutputStream {
 
 	private final BAOutputStream underlayBAOut;
+
+	/**
+	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタの上限
+	 */
+	private final static int maxNestLimit = 100;
+	
+	/**
+	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタ
+	 */
+	private final static ThreadLocal<Integer> nestCount = new ThreadLocal<Integer>() { 
+		@Override
+		protected Integer initialValue() {
+            return 0;
+		}
+	};
+	
 	
 	public OOutputStream(OutputStream out) {
 		super(out);
@@ -51,22 +67,33 @@ public final class OOutputStream extends DataOutputStream {
 			return;
 		}
 
-		Class<?> oClazz = o.getClass();
-		
-		if( oClazz.isEnum()) {
-			short id = HandlerRegistry.getClassId(oClazz);
-			writeShort(id);
-
-			MarshalHandler m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
-			m.writeObject(this, o);
+		try {
+			Integer n = nestCount.get();
+			if(n > maxNestLimit) {
+				// o は無限ループを持っているのでtoString()は危険
+				throw new InfiniteLoopException("無限ループです。 data=" + o.getClass().getSimpleName());
+			}
+			nestCount.set(n+1);
 			
-		} else {
-			short id = HandlerRegistry.getClassId(oClazz);
-			MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
-			writeShort(id);
-			m.writeObject(this, o);
+			Class<?> oClazz = o.getClass();
+			
+			if( oClazz.isEnum()) {
+				short id = HandlerRegistry.getClassId(oClazz);
+				writeShort(id);
+	
+				MarshalHandler m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
+				m.writeObject(this, o);
+				
+			} else {
+				short id = HandlerRegistry.getClassId(oClazz);
+				MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
+				writeShort(id);
+				m.writeObject(this, o);
+			}
+		} finally {
+			Integer n = nestCount.get();
+			nestCount.set(n-1);
 		}
-
 	}
 	
 	public final boolean isUnderlayBAOut() {

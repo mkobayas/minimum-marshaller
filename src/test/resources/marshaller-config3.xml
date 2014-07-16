@@ -6,6 +6,7 @@
           最大値は 2^16-1 = 65535 です。   
     -->    
 	<class-mapping id="1100" class="org.mk300.marshal.minimum.test.pojo.SampleData"/>
+	<class-mapping id="1101" class="org.mk300.marshal.minimum.test.pojo.SampleData2"/>
 	
 	
 </minimum-marshaller>
