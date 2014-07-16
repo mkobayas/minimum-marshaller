@@ -39,6 +39,12 @@ public class BAOutputStream extends OutputStream {
         buf = new byte[size];
     }
 
+
+    public void ensureCapacity2(int requireCapacity) {
+        if (buf.length - count - requireCapacity < 0)
+            grow(count + requireCapacity);
+    }
+    
     private void ensureCapacity(int minCapacity) {
         if (minCapacity - buf.length > 0)
             grow(minCapacity);
@@ -96,4 +102,12 @@ public class BAOutputStream extends OutputStream {
     public final byte[] getBuf() {
     	return buf;
     }
+    
+	public final void incCount(int value) {
+		int temp = count + value;
+		if (temp < 0) {
+			temp = Integer.MAX_VALUE;
+		}
+		count = temp;
+	}
 }

@@ -75,19 +75,40 @@ public final class OInputStream extends DataInputStream {
 
 	
 	
+	@SuppressWarnings("deprecation")
 	public String readString() throws IOException {
-		String s = null;
 		
-		byte marker = readByte();
-		if(marker == 1) {
-			s = readUTF();
-		} else if(marker == 2){
-			int size = readInt();
-			byte[] strBytes = new byte[size];
-			readFully(strBytes);
-			s = new String(strBytes, "UTF-8");
+		switch(readByte()) {
+		case 0:
+			// null
+			return null;
+		case 1:
+			// empty string
+			return "";
+		case 2:
+			// small ascii
+			int size = readByte();
+			if(underlayBAIn != null) {
+				byte[] src = underlayBAIn.getBuf();
+				int offset = underlayBAIn.getPos();
+				underlayBAIn.skip(size);
+				return new String(src, 0, offset, size);
+			} else {
+				byte[] strBytes = new byte[size];
+				readFully(strBytes);
+				return new String(strBytes, 0, 0, size);
+			}
+		case 3:
+			// middle string
+			return readUTF();
+		case 4:
+			// large string
+			int size2 = readInt();
+			byte[] strBytes2 = new byte[size2];
+			readFully(strBytes2);
+			return new String(strBytes2, "UTF-8");
+		default:
+			throw new IOException("Unkwown marker(String).");
 		}
-		
-		return s;
 	}
 }
