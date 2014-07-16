@@ -32,36 +32,11 @@ public class StringHandler implements MarshalHandler<String> {
 
 	@Override
 	public void writeObject(OOutputStream out, String s) throws IOException {
-		// DataOutputのwriteUTFはUTF-8エンコード後のバイトサイズが65535以下でなければいけない
-		//  UTF-8は、1-3バイトの可変なので、全て3バイトと想定して閾値を20000文字とする。
-		//  なお、s.length()の戻り値は、サローゲートペアの場合、１文字でも2を返却するので
-		//  サローゲートペア文字でも大丈夫
-		if(s.length() < 20000) {
-			out.writeByte(1);
-			out.writeUTF(s);
-		} else {
-			byte[] strBytes = s.getBytes("UTF-8");
-			out.writeByte(2);
-			out.writeInt(strBytes.length);
-			out.write(strBytes);
-		}
+		out.writeString(s);
 	}
 
 	@Override
 	public String readObject(OInputStream in, Class<String> clazz) throws IOException {
-		String s = null;
-		
-		byte marker = in.readByte();
-		if(marker == 1) {
-			s = in.readUTF();
-		} else if(marker == 2){
-			int size = in.readInt();
-			byte[] strBytes = new byte[size];
-			in.readFully(strBytes);
-			s = new String(strBytes, "UTF-8");
-		}
-		
-		return s;
-				
+		return in.readString();			
 	}
 }

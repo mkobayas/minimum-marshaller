@@ -104,4 +104,24 @@ public final class OOutputStream extends DataOutputStream {
 		written = temp;
 	}
 
+	public void writeString(String str) throws IOException {
+		if( str == null) {
+			writeByte(0);
+			return;
+		}
+		
+		// DataOutputのwriteUTFはUTF-8エンコード後のバイトサイズが65535以下でなければいけない
+		//  UTF-8は、1-3バイトの可変なので、全て3バイトと想定して閾値を20000文字とする。
+		//  なお、s.length()の戻り値は、サローゲートペアの場合、１文字でも2を返却するので
+		//  サローゲートペア文字でも大丈夫
+		if(str.length() < 20000) {
+			writeByte(1);
+			writeUTF(str);
+		} else {
+			byte[] strBytes = str.getBytes("UTF-8");
+			writeByte(2);
+			writeInt(strBytes.length);
+			write(strBytes);
+		}
+	}
 }

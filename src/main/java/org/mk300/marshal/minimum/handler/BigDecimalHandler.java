@@ -34,12 +34,12 @@ public class BigDecimalHandler implements MarshalHandler<BigDecimal> {
 	@Override
 	public void writeObject(OOutputStream out, BigDecimal number) throws IOException {
 		String str = number.toString();
-		out.writeUTF(str);
+		out.writeString(str);
 	}
 
 	@Override
 	public BigDecimal readObject(OInputStream in, Class<BigDecimal> clazz) throws IOException {
-		String str = in.readUTF();
+		String str = in.readString();
 		BigDecimal number = new BigDecimal(str);
 		return number;
 	}

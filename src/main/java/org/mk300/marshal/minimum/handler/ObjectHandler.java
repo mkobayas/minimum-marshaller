@@ -95,25 +95,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 				
 				if( c == String.class) {
 					String s = (String)f.get(o);
-					if(s != null) {
-						
-						// DataOutputのwriteUTFはUTF-8エンコード後のバイトサイズが65535以下でなければいけない
-						//  UTF-8は、1-3バイトの可変なので、全て3バイトと想定して閾値を20000文字とする。
-						//  なお、s.length()の戻り値は、サローゲートペアの場合、１文字でも2を返却するので
-						//  サローゲートペア文字でも大丈夫
-						if(s.length() < 20000) {
-							out_tmp.writeByte(1);
-							out_tmp.writeUTF(s);
-						} else {
-							byte[] strBytes = s.getBytes("UTF-8");
-							out_tmp.writeByte(2);
-							out_tmp.writeInt(strBytes.length);
-							out_tmp.write(strBytes);
-						}
-					} else {
-						out_tmp.writeByte(0);
-					}
-					
+					out_tmp.writeString(s);
 				} else if(c.isPrimitive()) {
 					if(c == Integer.TYPE){
 						out_tmp.writeInt(f.getInt(o));
@@ -219,17 +201,8 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 				Class<?> c = f.getType();
 
 				if(c == String.class) {
-					byte marker = ois.readByte();
-					if(marker == 1) {
-						String s = ois.readUTF();
-						f.set(data, s);
-					} else if(marker == 2){
-						int size = ois.readInt();
-						byte[] strBytes = new byte[size];
-						ois.readFully(strBytes);
-						String s = new String(strBytes, "UTF-8");
-						f.set(data, s);
-					}
+					String s = ois.readString();
+					f.set(data, s);
 				} else if(c.isPrimitive()) {
 
 					if(c == Integer.TYPE){

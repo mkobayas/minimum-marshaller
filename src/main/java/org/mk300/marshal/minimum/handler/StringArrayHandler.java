@@ -35,17 +35,7 @@ public class StringArrayHandler implements MarshalHandler<String[]> {
 	public void writeObject(OOutputStream out, String[] array) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, array.length);
 		for(int i=0; i< array.length; i++ ) {
-			if(array[i] == null) {
-				out.writeByte(0);
-			} else if(array[i].length() < 20000) {
-				out.writeByte(1);
-				out.writeUTF(array[i]);
-			} else {
-				byte[] strBytes = array[i].getBytes("UTF-8");
-				out.writeByte(2);
-				out.writeInt(strBytes.length);
-				out.write(strBytes);
-			}
+			out.writeString(array[i]);
 		}
 	}
 
@@ -55,15 +45,7 @@ public class StringArrayHandler implements MarshalHandler<String[]> {
 		
 		String[] array = new String[size];
 		for(int i=0; i<size ; i++) {
-			byte marker = in.readByte();
-			if(marker == 1) {
-				array[i] = in.readUTF();
-			} else if(marker == 2){
-				int len = in.readInt();
-				byte[] strBytes = new byte[len];
-				in.readFully(strBytes);
-				array[i] = new String(strBytes, "UTF-8");
-			}
+			array[i] = in.readString();
 		}			
 		return array;
 	}

@@ -73,4 +73,21 @@ public final class OInputStream extends DataInputStream {
 	}
 	
 
+	
+	
+	public String readString() throws IOException {
+		String s = null;
+		
+		byte marker = readByte();
+		if(marker == 1) {
+			s = readUTF();
+		} else if(marker == 2){
+			int size = readInt();
+			byte[] strBytes = new byte[size];
+			readFully(strBytes);
+			s = new String(strBytes, "UTF-8");
+		}
+		
+		return s;
+	}
 }
