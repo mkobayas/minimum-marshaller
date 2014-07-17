@@ -8,10 +8,11 @@ import java.util.Map;
 import org.apache.commons.io.HexDump;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.MinimumMarshaller;
 import org.mk300.marshal.minimum.handler.ObjectHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
+import org.mk300.marshal.minimum.registry.ShortCMap;
+import org.mk300.marshal.minimum.registry.ShortHMap;
 
 import test.beans.NewClassModifyBean;
 import test.beans.OldClassModifyBean;
@@ -32,7 +33,7 @@ public class ModifyClassTest {
 		
 		Field f_handlerMap = HandlerRegistry.class.getDeclaredField("handlerMap");
 		f_handlerMap.setAccessible(true);
-		Map<Short, MarshalHandler> handlerMap = (Map<Short, MarshalHandler>)f_handlerMap.get(null);
+		ShortHMap handlerMap = (ShortHMap)f_handlerMap.get(null);
 
 		Field f_classIdRMap = HandlerRegistry.class.getDeclaredField("classIdRMap");
 		f_classIdRMap.setAccessible(true);
@@ -40,7 +41,7 @@ public class ModifyClassTest {
 
 		Field f_classMap = HandlerRegistry.class.getDeclaredField("classMap");
 		f_classMap.setAccessible(true);
-		Map<Short, Class<?>> classMap = (Map<Short, Class<?>>)f_classMap.get(null);
+		ShortCMap classMap = (ShortCMap)f_classMap.get(null);
 		
 		
 		// クラスマッピングの準備
@@ -94,7 +95,7 @@ public class ModifyClassTest {
 		
 		Field f_handlerMap = HandlerRegistry.class.getDeclaredField("handlerMap");
 		f_handlerMap.setAccessible(true);
-		Map<Short, MarshalHandler> handlerMap = (Map<Short, MarshalHandler>)f_handlerMap.get(null);
+		ShortHMap handlerMap = (ShortHMap)f_handlerMap.get(null);
 
 		Field f_classIdRMap = HandlerRegistry.class.getDeclaredField("classIdRMap");
 		f_classIdRMap.setAccessible(true);
@@ -102,7 +103,7 @@ public class ModifyClassTest {
 
 		Field f_classMap = HandlerRegistry.class.getDeclaredField("classMap");
 		f_classMap.setAccessible(true);
-		Map<Short, Class<?>> classMap = (Map<Short, Class<?>>)f_classMap.get(null);
+		ShortCMap classMap = (ShortCMap)f_classMap.get(null);
 		
 		
 		// クラスマッピングの準備
@@ -158,7 +159,7 @@ public class ModifyClassTest {
 		
 		Field f_handlerMap = HandlerRegistry.class.getDeclaredField("handlerMap");
 		f_handlerMap.setAccessible(true);
-		Map<Short, MarshalHandler> handlerMap = (Map<Short, MarshalHandler>)f_handlerMap.get(null);
+		ShortHMap handlerMap = (ShortHMap)f_handlerMap.get(null);
 
 		Field f_classIdRMap = HandlerRegistry.class.getDeclaredField("classIdRMap");
 		f_classIdRMap.setAccessible(true);
@@ -166,7 +167,7 @@ public class ModifyClassTest {
 
 		Field f_classMap = HandlerRegistry.class.getDeclaredField("classMap");
 		f_classMap.setAccessible(true);
-		Map<Short, Class<?>> classMap = (Map<Short, Class<?>>)f_classMap.get(null);
+		ShortCMap classMap = (ShortCMap)f_classMap.get(null);
 		
 		
 		// クラスマッピングの準備
@@ -238,7 +239,7 @@ public class ModifyClassTest {
 		
 		Field f_handlerMap = HandlerRegistry.class.getDeclaredField("handlerMap");
 		f_handlerMap.setAccessible(true);
-		Map<Short, MarshalHandler> handlerMap = (Map<Short, MarshalHandler>)f_handlerMap.get(null);
+		ShortHMap handlerMap = (ShortHMap)f_handlerMap.get(null);
 
 		Field f_classIdRMap = HandlerRegistry.class.getDeclaredField("classIdRMap");
 		f_classIdRMap.setAccessible(true);
@@ -246,7 +247,7 @@ public class ModifyClassTest {
 
 		Field f_classMap = HandlerRegistry.class.getDeclaredField("classMap");
 		f_classMap.setAccessible(true);
-		Map<Short, Class<?>> classMap = (Map<Short, Class<?>>)f_classMap.get(null);
+		ShortCMap classMap = (ShortCMap)f_classMap.get(null);
 		
 		
 		// クラスマッピングの準備

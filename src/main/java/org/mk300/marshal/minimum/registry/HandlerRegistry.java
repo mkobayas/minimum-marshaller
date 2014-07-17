@@ -33,10 +33,10 @@ import org.mk300.marshal.minimum.MarshalHandler;
  */
 @SuppressWarnings("rawtypes")
 public class HandlerRegistry {
-	
-	private static Map<Short, MarshalHandler> handlerMap = new HashMap<Short, MarshalHandler>();
+
+	private static ShortHMap handlerMap = new ShortHMap();
 	private static Map<Class<?>, Short> classIdRMap = new HashMap<Class<?>, Short>();
-	private static Map<Short, Class<?>> classMap = new HashMap<Short, Class<?>>();
+	private static ShortCMap classMap = new ShortCMap();
 
 	public static short ID_NULL = 0;
 	public static short ID_ENUM = 1;
@@ -47,6 +47,9 @@ public class HandlerRegistry {
 
 		String userConfigName = System.getProperty("minimum.user.marshaller-config", "marshaller-config.xml");
 		readConfig(userConfigName);
+		
+		handlerMap.fix();
+		classMap.fix();
 	}
 	
 	private static void readConfig(String configName) {
