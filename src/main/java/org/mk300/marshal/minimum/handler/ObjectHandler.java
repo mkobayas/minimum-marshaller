@@ -18,11 +18,10 @@ package org.mk300.marshal.minimum.handler;
 
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 
-import org.mk300.marshal.common.ClassMetaDataRegistry;
-import org.mk300.marshal.common.InfiniteLoopException;
 import org.mk300.marshal.common.MarshalException;
+import org.mk300.marshal.common.UnsafeClassMetaDataRegistry;
+import org.mk300.marshal.common.UnsafeFieldAccessor;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.BAInputStream;
 import org.mk300.marshal.minimum.io.BAOutputStream;
@@ -41,7 +40,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	@Override
 	public final void writeObject(OOutputStream out, Object o) throws IOException {
 
-		Field currentProcessfeild = null; // エラー時のメッセージ出力用。
+		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 
 		assert o != null;
 		
@@ -59,7 +58,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 			
 			Class<?> oClazz = o.getClass();
 						
-			Field[] fieldList = ClassMetaDataRegistry.getFieldList(oClazz);
+			UnsafeFieldAccessor[] fieldList = UnsafeClassMetaDataRegistry.getFieldList(oClazz);
 			
 			if( out.isUnderlayBAOut() ) {
 				skipPositionForBAO = out_tmp.skipIntSize();
@@ -68,7 +67,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 			// 項目数を書込（Beanクラスに項目数変更があった場合、読み込み側で処理を打ち切る為に利用される)
 			NaturalNumberIoHelper.writeNaturalNumber(out_tmp, fieldList.length);
 			
-			for(Field f : fieldList) {
+			for(UnsafeFieldAccessor f : fieldList) {
 				currentProcessfeild = f;
 				
 				Class<?> c = f.getType();
@@ -138,7 +137,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	
 	@Override
 	public final Object readObject(OInputStream in, Class<Object> clazz) throws IOException {
-		Field currentProcessfeild = null; // エラー時のメッセージ出力用。
+		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 		
 		try {
 
@@ -164,9 +163,9 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 			int fieldCount = NaturalNumberIoHelper.readNaturalNumber(ois);
 			int processedCount = 0;
 			
-			Field[] fieldList = ClassMetaDataRegistry.getFieldList(clazz);
+			UnsafeFieldAccessor[] fieldList = UnsafeClassMetaDataRegistry.getFieldList(clazz);
 			
-			for(Field f : fieldList) {
+			for(UnsafeFieldAccessor f : fieldList) {
 				currentProcessfeild = f;
 				
 				processedCount += 1;
