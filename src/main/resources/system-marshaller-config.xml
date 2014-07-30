@@ -38,10 +38,9 @@
 	<class-mapping id="21" handler="org.mk300.marshal.minimum.handler.AtomicReferenceHandler" class="java.util.concurrent.atomic.AtomicReference" />
 	<class-mapping id="22" handler="org.mk300.marshal.minimum.handler.AtomicStampedReferenceHandler" class="java.util.concurrent.atomic.AtomicStampedReference" />
 	
-	<!-- TODO java.util.concurrent.atomic.AtomicIntegerArray -->
-	<!-- TODO java.util.concurrent.atomic.AtomicLongArray -->
-	<!-- TODO java.util.concurrent.atomic.AtomicReferenceArray -->
-	
+	<class-mapping id="23" handler="org.mk300.marshal.minimum.handler.AtomicIntegerArrayHandler"    class="java.util.concurrent.atomic.AtomicIntegerArray" />
+	<class-mapping id="24" handler="org.mk300.marshal.minimum.handler.AtomicLongArrayHandler"       class="java.util.concurrent.atomic.AtomicLongArray" />
+	<class-mapping id="25" handler="org.mk300.marshal.minimum.handler.AtomicReferenceArrayHandler"  class="java.util.concurrent.atomic.AtomicReferenceArray" />
 	
 	<!-- Collection (List/Set) -->
 	<class-mapping id="101" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.ArrayList"/>

@@ -27,7 +27,7 @@ public class TestUtil {
 			
 			// 正確に復元されていることの検証
 			if( ! o.equals(target) ) {
-				throw new RuntimeException("オブジェクトが異なります。" + target );
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
 			}
 			
 		} finally {
@@ -49,7 +49,7 @@ public class TestUtil {
 			
 			// 正確に復元されていることの検証
 			if( ! o.equals(target) ) {
-				throw new RuntimeException("（普通のStreamの場合）オブジェクトが異なります" + target );
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
 			}
 			
 		} finally {
