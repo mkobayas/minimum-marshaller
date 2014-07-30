@@ -38,7 +38,7 @@ import org.w3c.dom.NodeList;
 public class ConfigReader {
 
 	
-	public List<String> read(InputStream is, List<ConfigElement> list) {
+	public List<AdditinalConfigElement> read(InputStream is, List<ConfigElement> list) {
 		
 		try {
 			
@@ -108,18 +108,28 @@ public class ConfigReader {
 			
 			
 			// 追加コンフィグ取得
-			List<String> additinalConfig = new ArrayList<String>();
+			List<AdditinalConfigElement> additinalConfig = new ArrayList<AdditinalConfigElement>();
 			
 			NodeList additinalConfigNodeList = doc.getElementsByTagName("additional-config");
 			for(int i=0; i<additinalConfigNodeList.getLength(); i++) {
+				AdditinalConfigElement additional = new AdditinalConfigElement();
+				
 				Node node = additinalConfigNodeList.item(i);
 				NamedNodeMap attributes = node.getAttributes();
 				
+				// optional
+				Node optinalNode = attributes.getNamedItem("optional");
+				boolean optional = optinalNode == null ? false : Boolean.parseBoolean(optinalNode.getTextContent());
+				additional.setOptional(optional);
+				
+				// config-file
 				Node configFileNode = attributes.getNamedItem("config-file");
 				if( configFileNode == null) {
 					throw new RuntimeException("ConfingReaderで例外：　additional-configの" + (i+1) + "番目にconfig-file属性が有りません.");
 				}
-				additinalConfig.add(configFileNode.getTextContent());
+				additional.setPath(configFileNode.getTextContent());
+				
+				additinalConfig.add(additional);
 			}
 			
 			return additinalConfig;

@@ -53,10 +53,14 @@ public class HandlerRegistry {
 		handlerMap.fix();
 		classMap.fix();
 	}
-	
+
 	private static void readConfig(String configName) {
+		readConfig(configName, false);
+	}
+	
+	private static void readConfig(String configName, boolean optional) {
 		List<ConfigElement> configElements = new ArrayList<ConfigElement>();
-		List<String> addtinalConfig = new ArrayList<String>();
+		List<AdditinalConfigElement> addtinalConfig = new ArrayList<AdditinalConfigElement>();
 		InputStream is = null;
 		try {
 			ClassLoader cl = HandlerRegistry.class.getClassLoader();
@@ -71,7 +75,12 @@ public class HandlerRegistry {
 				try {
 					is = new FileInputStream(configName);
 				} catch (FileNotFoundException e) {
-					throw new RuntimeException("指定された設定ファイルをパスから取得できません. configName=" + configName);
+					
+					if( optional ) {
+						return;
+					} else {
+						throw new RuntimeException("指定された設定ファイルをパスから取得できません. configName=" + configName);
+					}
 				}
 			}
 			
@@ -99,8 +108,8 @@ public class HandlerRegistry {
 			}
 		}
 		
-		for(String config : addtinalConfig) {
-			readConfig(config);
+		for(AdditinalConfigElement config : addtinalConfig) {
+			readConfig(config.getPath(), config.isOptional());
 		}
 	}
 		

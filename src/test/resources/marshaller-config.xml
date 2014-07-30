@@ -38,4 +38,7 @@
 	<additional-config config-file="marshaller-config2.xml"/>
 	<additional-config config-file="marshaller-config3.xml"/>
 	
+	
+	<additional-config config-file="marshaller-config-dummy.xml" optional="true"/>
+	
 </minimum-marshaller>
