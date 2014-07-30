@@ -17,6 +17,8 @@
 package org.mk300.marshal.minimum.registry;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -64,8 +66,13 @@ public class HandlerRegistry {
 				is = cl.getResourceAsStream(configName);
 			}
 			
-			if(is == null) {
-				throw new RuntimeException("指定された設定ファイルをクラスパスから取得できません. configName=" + configName);
+			if( is == null ) {
+				// read from file path
+				try {
+					is = new FileInputStream(configName);
+				} catch (FileNotFoundException e) {
+					throw new RuntimeException("指定された設定ファイルをパスから取得できません. configName=" + configName);
+				}
 			}
 			
 			ConfigReader reader = new ConfigReader();
