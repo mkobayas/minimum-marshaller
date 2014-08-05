@@ -26,7 +26,83 @@ todo
 
 
 ## Supported Class
-todo
+
+User Pojo Class (defined in marshaller-config.xml), and followings
+
+```
+java.lang.Enum
+    
+java.lang.String
+java.util.Date
+java.math.BigDecimal
+java.math.BigInteger
+java.sql.Date
+java.sql.Time
+java.sql.Timestamp
+java.util.concurrent.atomic.AtomicInteger
+java.util.concurrent.atomic.AtomicLong
+java.util.concurrent.atomic.AtomicBoolean
+java.util.concurrent.atomic.AtomicReference
+java.util.concurrent.atomic.AtomicStampedReference
+
+java.util.concurrent.atomic.AtomicIntegerArray
+java.util.concurrent.atomic.AtomicLongArray
+java.util.concurrent.atomic.AtomicReferenceArray
+
+
+java.util.ArrayList
+java.util.LinkedList
+java.util.concurrent.CopyOnWriteArrayList
+java.util.Vector
+java.util.HashSet
+java.util.concurrent.CopyOnWriteArraySet
+java.util.LinkedHashSet
+java.util.ArrayDeque
+java.util.concurrent.ConcurrentLinkedDeque
+java.util.concurrent.ConcurrentLinkedQueue
+java.util.concurrent.LinkedTransferQueue
+java.util.Stack
+
+java.util.TreeSet
+java.util.concurrent.ConcurrentSkipListSet
+java.util.concurrent.ArrayBlockingQueue
+java.util.concurrent.LinkedBlockingDeque
+java.util.concurrent.LinkedBlockingQueue
+java.util.PriorityQueue
+java.util.concurrent.PriorityBlockingQueue
+java.util.concurrent.SynchronousQueue
+
+java.util.EnumSet
+java.util.EnumMap
+
+java.util.HashMap
+java.util.concurrent.ConcurrentHashMap
+java.util.IdentityHashMap
+java.util.Properties
+java.util.LinkedHashMap
+java.util.TreeMap
+java.util.concurrent.ConcurrentSkipListMap
+
+java.lang.Integer
+java.lang.Long
+java.lang.Short
+java.lang.Boolean
+java.lang.Double
+java.lang.Float
+java.lang.Character
+java.lang.Byte
+
+boolean[]
+short[]
+int[]
+long[]
+boolean[]
+float[]
+double[]
+char[]
+Object[]
+String[]
+```
 
 ## Limitation
 
