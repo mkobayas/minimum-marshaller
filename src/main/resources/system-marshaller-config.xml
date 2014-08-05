@@ -56,17 +56,24 @@
 	<class-mapping id="112" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.LinkedTransferQueue"/>
 	<class-mapping id="113" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.Stack"/>
 	
-	<class-mapping id="131" handler="org.mk300.marshal.minimum.handler.TreeSetHandler"    class="java.util.TreeSet"/>
+	<class-mapping id="131" handler="org.mk300.marshal.minimum.handler.TreeSetHandler"               class="java.util.TreeSet"/>
 	<class-mapping id="132" handler="org.mk300.marshal.minimum.handler.ConcurrentSkipListSetHandler" class="java.util.concurrent.ConcurrentSkipListSet"/>
+	<class-mapping id="133" handler="org.mk300.marshal.minimum.handler.ArrayBlockingQueueHandler"    class="java.util.concurrent.ArrayBlockingQueue"/>
+	<class-mapping id="134" handler="org.mk300.marshal.minimum.handler.LinkedBlockingDequeHandler"   class="java.util.concurrent.LinkedBlockingDeque"/>
+	<class-mapping id="135" handler="org.mk300.marshal.minimum.handler.LinkedBlockingQueueHandler"   class="java.util.concurrent.LinkedBlockingQueue"/>
+	<class-mapping id="136" handler="org.mk300.marshal.minimum.handler.PriorityQueueHandler"         class="java.util.PriorityQueue"/>
+	<class-mapping id="137" handler="org.mk300.marshal.minimum.handler.PriorityBlockingQueueHandler" class="java.util.concurrent.PriorityBlockingQueue"/>
+	<class-mapping id="138" handler="org.mk300.marshal.minimum.handler.SynchronousQueueHandler" class="java.util.concurrent.SynchronousQueue"/>
 	
-	<!-- TODO java.util.concurrent.ArrayBlockingQueue キャパシティが必要-->
-	<!-- TODO java.util.concurrent.LinkedBlockingDeque キャパシティが必要-->
-	<!-- TODO java.util.concurrent.LinkedBlockingQueue キャパシティが必要-->
-	<!-- TODO java.util.PriorityQueue Comparatorが必要-->
-	<!-- TODO java.util.concurrent.SynchronousQueue fairが必要、このクラスは内部要素を持たない-->
 	<!-- Unsupport java.util.concurrent.DelayQueue  -->
 	
-	<!-- TODO EnumSet -->
+	<!-- EnumSet -->
+	<class-mapping id="140" handler="org.mk300.marshal.minimum.handler.EnumSetHandler" class="java.util.RegularEnumSet"/>
+	<class-mapping id="141" handler="org.mk300.marshal.minimum.handler.EnumSetHandler" class="java.util.JumboEnumSet"/>
+	
+	<!-- EnumMap -->
+	<class-mapping id="142" handler="org.mk300.marshal.minimum.handler.EnumMapHandler" class="java.util.EnumMap"/>
+	
 	
 	<!-- Map -->
 	<class-mapping id="201" handler="org.mk300.marshal.minimum.handler.MapHandler" class="java.util.HashMap"/>

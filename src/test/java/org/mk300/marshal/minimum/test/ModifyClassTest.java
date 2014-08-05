@@ -18,7 +18,7 @@ import test.beans.NewClassModifyBean;
 import test.beans.OldClassModifyBean;
 import test.beans.ParentBean;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked"})
 public class ModifyClassTest {
 
 	static short classId = (short)29999;
