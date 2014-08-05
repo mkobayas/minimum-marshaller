@@ -158,8 +158,4 @@ o.m.m.b.MinimumMarshallerBench.t2_unmarshalling    thrpt         2   771744.119 
 o.m.m.b.MinimumMarshallerBench.t3_mix              thrpt         2   402507.300          NaN    ops/s
 ```
 
-## Binary size comparison
-
-todo
-
 
