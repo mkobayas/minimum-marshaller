@@ -135,9 +135,28 @@ xml/xstream+c-woodstox                 67    5352   11855   17207    525   273
 yaml/jackson/databind                  69   20646   30754   51400    505   260
 ```
 
-### Multi thread performance
+### Multi thread performance ( [see](https://github.com/mkobayas/minimum-marshaller-benchmark) )
 
-todo
+
+Ser and Deser per second
+
+<img src="http://goo.gl/NErSZA"/>
+
+```
+Benchmark                                           Mode   Samples        Score  Score error    Units
+o.m.m.b.KryoBench.t1_marshalling                   thrpt         2    30164.715          NaN    ops/s
+o.m.m.b.KryoBench.t2_unmarshalling                 thrpt         2    24577.007          NaN    ops/s
+o.m.m.b.KryoBench.t3_mix                           thrpt         2    23613.027          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t1_marshalling        thrpt         2  1350733.807          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t2_unmarshalling      thrpt         2   772404.799          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t3_mix                thrpt         2   607723.728          NaN    ops/s
+o.m.m.b.MessagePackBench.t1_marshalling            thrpt         2   963043.104          NaN    ops/s
+o.m.m.b.MessagePackBench.t2_unmarshalling          thrpt         2   575063.274          NaN    ops/s
+o.m.m.b.MessagePackBench.t3_mix                    thrpt         2   353768.814          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t1_marshalling      thrpt         2   893615.846          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t2_unmarshalling    thrpt         2   771744.119          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t3_mix              thrpt         2   402507.300          NaN    ops/s
+```
 
 ## Binary size comparison
 
