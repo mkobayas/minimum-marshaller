@@ -18,6 +18,7 @@ package org.mk300.marshal.minimum.handler;
 
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.common.UnsafeClassMetaDataRegistry;
@@ -29,13 +30,27 @@ import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
 import org.mk300.marshal.minimum.io.OOutputStream;
 
+import sun.misc.Unsafe;
+
 
 /**
  * 
  * @author mkobayas@redhat.com
  *
  */
+@SuppressWarnings("restriction")
 public final class ObjectHandler implements MarshalHandler<Object> {
+	
+	private static final Unsafe unsafe;
+	static {
+		try {
+			Field field = Unsafe.class.getDeclaredField("theUnsafe");
+			field.setAccessible(true);
+			unsafe = (Unsafe) field.get(null);
+		} catch (Exception e) {
+			throw new Error("NG unsafe", e);
+		}
+	}
 	
 	@Override
 	public final void writeObject(OOutputStream out, Object o) throws IOException {
@@ -141,8 +156,8 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 		
 		try {
 
-			Object data = clazz.newInstance();
-
+			Object data = unsafe.allocateInstance(clazz);
+			
 			int binarySize = in.readInt();
 
 			

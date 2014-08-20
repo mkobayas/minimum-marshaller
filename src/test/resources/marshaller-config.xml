@@ -28,6 +28,7 @@
 	<class-mapping id="1020" class="org.mk300.marshal.minimum.test.pojo.MyEnumObject"/>
 	<class-mapping id="1021" class="org.mk300.marshal.minimum.test.pojo.ComparableObject"/>
 	<class-mapping id="1022" class="org.mk300.marshal.minimum.test.pojo.ComparatorForSampleData"/>
+	<class-mapping id="1023" class="org.mk300.marshal.minimum.test.pojo.NoDefaultConstructorAndFinalField"/>
 
 	<!-- 
 	　追加で読み込む設定ファイルを指定します。
