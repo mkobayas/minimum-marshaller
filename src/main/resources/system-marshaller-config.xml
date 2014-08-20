@@ -21,7 +21,8 @@
      User classは 1000 以降のidを利用してください。
      0 はnullを意味しています。
      1 はenum型で予約されています。
-     
+     2 はUndefined POJOで予約されています。
+     3 はUndefined enumで予約されています。
     -->
 	<class-mapping id="1" handler="org.mk300.marshal.minimum.handler.GenericEnumHandler" class="java.lang.Enum"/>
     

@@ -42,6 +42,10 @@ public class HandlerRegistry {
 
 	public static short ID_NULL = 0;
 	public static short ID_ENUM = 1;
+	public static short ID_UNDEFINED_POJO = 2;
+	public static short ID_UNDEFINED_ENUM = 3;
+	
+	private static boolean allowUndefined = true;
 	
 	static {
 		String systemConfigName = System.getProperty("minimum.system.marshaller-config", "system-marshaller-config.xml");
@@ -140,7 +144,15 @@ public class HandlerRegistry {
 		Short id = classIdRMap.get(clazz);
 		
 		if( id == null) {
-			throw new RuntimeException("classのidが設定されていません。clazz=" + clazz);
+			if(allowUndefined) {
+				if( clazz.isEnum()) {
+					return ID_UNDEFINED_ENUM;
+				} else {
+					return ID_UNDEFINED_POJO;
+				}
+			} else {
+				throw new RuntimeException("classのidが設定されていません。clazz=" + clazz);
+			}
 		}
 		
 		return id;

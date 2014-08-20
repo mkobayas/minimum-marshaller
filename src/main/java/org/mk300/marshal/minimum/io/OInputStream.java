@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.mk300.marshal.minimum.MarshalHandler;
+import org.mk300.marshal.minimum.handler.ObjectHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 /**
@@ -31,6 +32,8 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
  */
 public final class OInputStream extends DataInputStream {
 
+	private static final ObjectHandler undefinedPojoClassHandler = new ObjectHandler();
+	
 	private final BAInputStream underlayBAIn;
 	
 	public OInputStream(InputStream in) {
@@ -45,18 +48,34 @@ public final class OInputStream extends DataInputStream {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public final Object readObject() throws IOException {
 
+		MarshalHandler m;
+		Class<?> c;
+				
 		short id = readShort();
 
 		if (id == HandlerRegistry.ID_NULL) {
 			return null;
+		} 
+		
+		
+		if (id == HandlerRegistry.ID_UNDEFINED_POJO || id == HandlerRegistry.ID_UNDEFINED_ENUM) {
+			String className = readString();
+			try {
+				c = classLoad(className);
+			} catch (ClassNotFoundException e) {
+				throw new IOException(e);
+			}
+		} else {
+			c = HandlerRegistry.getObjClass(id);
 		}
 
-		MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
-		Class<?> c = HandlerRegistry.getObjClass(id);
-
-		// Enum is handled by special handler.
 		if(c.isEnum()) {
+			// Enum is handled by special handler.
 			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
+		} else if(id == HandlerRegistry.ID_UNDEFINED_POJO) {
+			m = undefinedPojoClassHandler;
+		} else {
+			m = HandlerRegistry.getMarshallHandler(id);
 		}
 		
 		Object obj = m.readObject(this, c);
@@ -109,6 +128,17 @@ public final class OInputStream extends DataInputStream {
 			return new String(strBytes2, "UTF-8");
 		default:
 			throw new IOException("Unkwown marker(String).");
+		}
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	private static Class classLoad(String className) throws ClassNotFoundException {
+		// TODO local caching ?
+		try {
+			return Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			return Class.forName(className, true, Thread.currentThread().getContextClassLoader());
 		}
 	}
 }

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 
 import org.mk300.marshal.common.InfiniteLoopException;
 import org.mk300.marshal.minimum.MarshalHandler;
+import org.mk300.marshal.minimum.handler.ObjectHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 /**
@@ -31,6 +32,8 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
  *
  */
 public final class OOutputStream extends DataOutputStream {
+	
+	private static final ObjectHandler undefinedPojoClassHandler = new ObjectHandler();
 
 	private final BAOutputStream underlayBAOut;
 
@@ -71,17 +74,34 @@ public final class OOutputStream extends DataOutputStream {
 		
 		Class<?> oClazz = o.getClass();
 		
+		MarshalHandler m;
+		
 		if( oClazz.isEnum()) {
+			
 			short id = HandlerRegistry.getClassId(oClazz);
-			writeShort(id);
-
-			MarshalHandler m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
+			
+			if(id == HandlerRegistry.ID_UNDEFINED_ENUM) {				
+				writeShort(HandlerRegistry.ID_UNDEFINED_ENUM);	
+				writeString(oClazz.getName());
+			} else {
+				writeShort(id);
+			}
+			
+			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
 			m.writeObject(this, o);
 			
 		} else {
 			short id = HandlerRegistry.getClassId(oClazz);
-			MarshalHandler m = HandlerRegistry.getMarshallHandler(id);
-			writeShort(id);
+		
+			if(id == HandlerRegistry.ID_UNDEFINED_POJO) {				
+				writeShort(HandlerRegistry.ID_UNDEFINED_POJO);	
+				writeString(oClazz.getName());
+				m = undefinedPojoClassHandler;
+			} else {
+				writeShort(id);
+				m = HandlerRegistry.getMarshallHandler(id);
+			}
+			
 			m.writeObject(this, o);
 		}
 		nestCount--;
