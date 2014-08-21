@@ -34,13 +34,13 @@ public class ClassSMap {
 	short[][] valueTable;
 	
 	public ClassSMap() {
-		keyTable = new Class[10][3];
-		valueTable = new short[10][3];
+		keyTable = new Class[64][3];
+		valueTable = new short[64][3];
 	}
 	
 	public short get(Class clazz) {
 		
-		int tableIndex = clazz.hashCode() % keyTable.length;
+		int tableIndex = (clazz.hashCode() & 0x7FFFFFFF) % keyTable.length;
 
 		Class[] keyArray = keyTable[tableIndex];
 		int index = 0;
@@ -56,7 +56,7 @@ public class ClassSMap {
 	
 	public short put(Class clazz, short id) {
 		short old = -1;
-		int tableIndex = clazz.hashCode() % keyTable.length;
+		int tableIndex = (clazz.hashCode() & 0x7FFFFFFF) % keyTable.length;
 
 		Class[] keyArray = keyTable[tableIndex];
 		int index = 0;
@@ -102,7 +102,7 @@ public class ClassSMap {
 						Class clazz = keyTable[i][j];
 						short id = valueTable[i][j];
 	
-						int tableIndex = clazz.hashCode() % newKeyTable.length;
+						int tableIndex = (clazz.hashCode() & 0x7FFFFFFF) % newKeyTable.length;
 						Class[] keyArray = newKeyTable[tableIndex];
 						int index = 0;
 						boolean success = false;
