@@ -24,7 +24,7 @@ import java.util.PriorityQueue;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -35,7 +35,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class PriorityQueueHandler implements MarshalHandler<PriorityQueue> {
 
 	@Override
-	public void writeObject(OOutputStream out, PriorityQueue queue) throws IOException {
+	public void writeObject(OOutputStream2 out, PriorityQueue queue) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, queue.size());
 		out.writeObject(queue.comparator());
 		for(Object element : queue) {

@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.mk300.marshal.minimum.io.BAInputStream;
 import org.mk300.marshal.minimum.io.BAOutputStream;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 
 /**
@@ -33,10 +33,9 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class MinimumMarshaller {
 	
 	public static byte[] marshal(Object obj, int estimatedSize) throws IOException {
-		BAOutputStream baos = new BAOutputStream(estimatedSize);
-		OOutputStream oos = new OOutputStream(baos);
+		OOutputStream2 oos = new OOutputStream2(estimatedSize);
 		oos.writeObject(obj);
-		return baos.toByteArray();
+		return oos.toBytes();
 	}
 
 	public static byte[] marshal(Object obj) throws IOException {

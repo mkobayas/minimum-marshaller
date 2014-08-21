@@ -24,7 +24,7 @@ import java.util.EnumSet;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 /**
@@ -45,7 +45,7 @@ public class EnumSetHandler implements MarshalHandler<EnumSet> {
 	}
 	
 	@Override
-	public void writeObject(OOutputStream out, EnumSet set) throws IOException {
+	public void writeObject(OOutputStream2 out, EnumSet set) throws IOException {
 		Class type;
 		try {
 			type = (Class)f.get(set);

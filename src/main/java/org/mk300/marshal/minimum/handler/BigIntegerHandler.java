@@ -23,7 +23,7 @@ import java.math.BigInteger;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -33,7 +33,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class BigIntegerHandler implements MarshalHandler<BigInteger> {
 
 	@Override
-	public void writeObject(OOutputStream out, BigInteger number) throws IOException {
+	public void writeObject(OOutputStream2 out, BigInteger number) throws IOException {
 		byte[] bytes = number.toByteArray();
 		NaturalNumberIoHelper.writeNaturalNumber(out, bytes.length);
 		out.write(bytes);

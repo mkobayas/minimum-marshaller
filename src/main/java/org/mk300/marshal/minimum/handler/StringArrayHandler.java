@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -32,7 +32,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class StringArrayHandler implements MarshalHandler<String[]> {
 
 	@Override
-	public void writeObject(OOutputStream out, String[] array) throws IOException {
+	public void writeObject(OOutputStream2 out, String[] array) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, array.length);
 		for(int i=0; i< array.length; i++ ) {
 			out.writeString(array[i]);

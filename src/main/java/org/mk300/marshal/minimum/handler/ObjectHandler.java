@@ -25,10 +25,9 @@ import org.mk300.marshal.common.UnsafeClassMetaDataRegistry;
 import org.mk300.marshal.common.UnsafeFieldAccessor;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.BAInputStream;
-import org.mk300.marshal.minimum.io.BAOutputStream;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 import sun.misc.Unsafe;
 
@@ -53,34 +52,23 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	}
 	
 	@Override
-	public final void writeObject(OOutputStream out, Object o) throws IOException {
+	public final void writeObject(OOutputStream2 out, Object o) throws IOException {
 
 		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 
 		assert o != null;
 		
 		try {
-			BAOutputStream baos = null;
-			OOutputStream out_tmp = null;
 			int skipPositionForBAO = -1;
-			
-			if( out.isUnderlayBAOut() ) {
-				out_tmp = out;
-			} else {
-				baos = new BAOutputStream();
-				out_tmp = new OOutputStream(baos);
-			}
 			
 			Class<?> oClazz = o.getClass();
 						
 			UnsafeFieldAccessor[] fieldList = UnsafeClassMetaDataRegistry.getFieldList(oClazz);
 			
-			if( out.isUnderlayBAOut() ) {
-				skipPositionForBAO = out_tmp.skipIntSize();
-			}
+			skipPositionForBAO = out.skipIntSize();
 			
 			// 項目数を書込（Beanクラスに項目数変更があった場合、読み込み側で処理を打ち切る為に利用される)
-			NaturalNumberIoHelper.writeNaturalNumber(out_tmp, fieldList.length);
+			NaturalNumberIoHelper.writeNaturalNumber(out, fieldList.length);
 			
 			for(UnsafeFieldAccessor f : fieldList) {
 				currentProcessfeild = f;
@@ -89,48 +77,43 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 				
 				if( c == String.class) {
 					String s = (String)f.get(o);
-					out_tmp.writeString(s);
+					out.writeString(s);
 				} else if(c.isPrimitive()) {
 					if(c == Integer.TYPE){
-						out_tmp.writeInt(f.getInt(o));
+						out.writeInt(f.getInt(o));
 						
 					} else if(c == Long.TYPE) {
-						out_tmp.writeLong(f.getLong(o));
+						out.writeLong(f.getLong(o));
 						
 					} else if(c == Short.TYPE) {
-						out_tmp.writeShort(f.getShort(o));
+						out.writeShort(f.getShort(o));
 						
 					} else if(c == Boolean.TYPE) {
-						out_tmp.writeBoolean(f.getBoolean(o));
+						out.writeBoolean(f.getBoolean(o));
 						
 					} else if(c == Double.TYPE) {
-						out_tmp.writeDouble(f.getDouble(o));
+						out.writeDouble(f.getDouble(o));
 						
 					} else if(c == Float.TYPE) {
-						out_tmp.writeFloat(f.getFloat(o));
+						out.writeFloat(f.getFloat(o));
 						
 					} else if(c == Character.TYPE) {
-						out_tmp.writeChar(f.getChar(o));
+						out.writeChar(f.getChar(o));
 						
 					}  else if(c == Byte.TYPE) {
-						out_tmp.writeByte(f.getByte(o));
+						out.writeByte(f.getByte(o));
 						
 					} 
 					
 				} else {
 					Object o2 = f.get(o);
-					out_tmp.writeObject(o2);
+					out.writeObject(o2);
 				}
 			}
 			
-			if( out.isUnderlayBAOut() ) {
-				int writeSize = out.size() - skipPositionForBAO -4;
-				out.writeIntDirect(writeSize, skipPositionForBAO);
-			} else {
-				out_tmp.flush();
-				out.writeInt(baos.size());
-				baos.writeTo(out);
-			}
+			int writeSize = out.size() - skipPositionForBAO -4;
+			out.writeIntDirect(writeSize, skipPositionForBAO);
+
 		
 		} catch (MarshalException e) {
 			throw e;

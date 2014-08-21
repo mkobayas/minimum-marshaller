@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class MapHandler implements MarshalHandler<Map> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void writeObject(OOutputStream out, Map map) throws IOException {
+	public void writeObject(OOutputStream2 out, Map map) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, map.size());
 		
 		for(Entry element : (Set<Map.Entry>)map.entrySet()) {

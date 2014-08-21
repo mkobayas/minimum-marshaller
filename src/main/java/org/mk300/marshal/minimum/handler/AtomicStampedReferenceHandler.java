@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicStampedReference;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -33,7 +33,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class AtomicStampedReferenceHandler implements MarshalHandler<AtomicStampedReference> {
 
 	@Override
-	public void writeObject(OOutputStream out, AtomicStampedReference ref) throws IOException {
+	public void writeObject(OOutputStream2 out, AtomicStampedReference ref) throws IOException {
 		out.writeObject(ref.getReference());
 		out.writeInt(ref.getStamp());
 	}

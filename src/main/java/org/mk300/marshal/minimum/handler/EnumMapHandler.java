@@ -27,7 +27,7 @@ import java.util.Set;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 /**
@@ -49,7 +49,7 @@ public class EnumMapHandler implements MarshalHandler<EnumMap> {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void writeObject(OOutputStream out, EnumMap map) throws IOException {
+	public void writeObject(OOutputStream2 out, EnumMap map) throws IOException {
 		Class type;
 		try {
 			type = (Class)f.get(map);

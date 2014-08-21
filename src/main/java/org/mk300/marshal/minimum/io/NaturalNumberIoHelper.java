@@ -51,7 +51,7 @@ public class NaturalNumberIoHelper {
 	 * @param naturalNumber
 	 * @throws IOException
 	 */
-	public static final void writeNaturalNumber(DataOutputStream dos, int naturalNumber) throws IOException {
+	public static final void writeNaturalNumber(OOutputStream2 dos, int naturalNumber) throws IOException {
 		if(naturalNumber < 0) {
 			throw new IOException(naturalNumber + " is not natural number");
 		}
@@ -149,89 +149,5 @@ public class NaturalNumberIoHelper {
 		}
 		
 		return naturalNumber;
-	}
-	
-	
-
-	public static void main(String[] args) throws Exception {
-		
-		System.out.println("start ");
-
-		for( int i=0 ; i< Integer.MAX_VALUE ; i++) {
-			try {
-				testNaturalNumber(i);
-			} catch (Exception e) {
-				System.out.println("error " + i);
-				throw e;
-			}
-		}
-//		
-//		for( int i=0 ; i< dv1+100 ; i++) {
-//			try {
-//				testNaturalNumber(i);
-//			} catch (Exception e) {
-//				System.out.println("error " + i);
-//				throw e;
-//			}
-//		}
-//
-//		for( int i=dv2-100 ; i< dv2+100 ; i++) {
-//			try {
-//				testNaturalNumber(i);
-//			} catch (Exception e) {
-//				System.out.println("error " + i);
-//				throw e;
-//			}
-//		}
-//
-//		for( int i=dv3-100 ; i< dv3+100 ; i++) {
-//			try {
-//				testNaturalNumber(i);
-//			} catch (Exception e) {
-//				System.out.println("error " + i);
-//				throw e;
-//			}
-//		}
-//
-//		for( int i=dv4-100 ; i< dv4+100 ; i++) {
-//			try {
-//				testNaturalNumber(i);
-//			} catch (Exception e) {
-//				System.out.println("error " + i);
-//				throw e;
-//			}
-//		}
-//
-//		for( int i=Integer.MAX_VALUE-100 ; i< Integer.MAX_VALUE ; i++) {
-//			try {
-//				testNaturalNumber(i);
-//			} catch (Exception e) {
-//				System.out.println("error " + i);
-//				throw e;
-//			}
-//		}
-
-		System.out.println("Success Finish! ");
-	}
-	
-
-	public static void testNaturalNumber(int number) throws Exception {
-		
-		BAOutputStream bo = new BAOutputStream();
-		DataOutputStream dos = new DataOutputStream(bo);
-		writeNaturalNumber(dos, number);
-		byte[] bytes = bo.toByteArray();
-		
-		BAInputStream bi = new BAInputStream(bytes);
-		DataInputStream di = new DataInputStream(bi);
-		
-		int ret = readNaturalNumber(di);
-
-		if(number % (Integer.MAX_VALUE/200) == 0 || false) {
-			System.out.println("" + number);
-		}
-		if(number != ret) {
-			throw new RuntimeException("ミスマッチ：" + number);
-		}
 	}
 }

@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -33,7 +33,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class GenericEnumHandler implements MarshalHandler<Enum> {
 
 	@Override
-	public void writeObject(OOutputStream out, Enum e) throws IOException {
+	public void writeObject(OOutputStream2 out, Enum e) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, e.ordinal());
 	}
 

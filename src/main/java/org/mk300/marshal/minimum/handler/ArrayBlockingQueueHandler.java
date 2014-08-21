@@ -23,7 +23,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class ArrayBlockingQueueHandler implements MarshalHandler<ArrayBlockingQueue> {
 	
 	@Override
-	public void writeObject(OOutputStream out, ArrayBlockingQueue set) throws IOException {
+	public void writeObject(OOutputStream2 out, ArrayBlockingQueue set) throws IOException {
 		// ArrayBlockingQueueの内部ReentrantLockを利用する必要があるか？
 		
 		// capacity

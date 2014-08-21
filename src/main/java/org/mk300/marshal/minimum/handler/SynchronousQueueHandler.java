@@ -23,7 +23,7 @@ import java.util.concurrent.SynchronousQueue;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class SynchronousQueueHandler implements MarshalHandler<SynchronousQueue>
 	}
 	
 	@Override
-	public void writeObject(OOutputStream out, SynchronousQueue queue) throws IOException {
+	public void writeObject(OOutputStream2 out, SynchronousQueue queue) throws IOException {
 		boolean fair;
 		try {
 			fair = f.get(queue).getClass().getName().equals("java.util.concurrent.SynchronousQueue$TransferQueue");

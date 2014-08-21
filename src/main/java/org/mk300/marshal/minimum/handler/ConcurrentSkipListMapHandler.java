@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -38,7 +38,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class ConcurrentSkipListMapHandler implements MarshalHandler<ConcurrentSkipListMap> {
 
 	@Override
-	public void writeObject(OOutputStream out, ConcurrentSkipListMap map) throws IOException {
+	public void writeObject(OOutputStream2 out, ConcurrentSkipListMap map) throws IOException {
 		out.writeObject(map.comparator());
 		NaturalNumberIoHelper.writeNaturalNumber(out, map.size());
 		for(Entry element : (Set<Map.Entry>)map.entrySet()) {

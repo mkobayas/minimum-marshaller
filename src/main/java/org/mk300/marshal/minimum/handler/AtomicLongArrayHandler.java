@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLongArray;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -33,7 +33,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class AtomicLongArrayHandler implements MarshalHandler<AtomicLongArray> {
 
 	@Override
-	public void writeObject(OOutputStream out, AtomicLongArray array) throws IOException {
+	public void writeObject(OOutputStream2 out, AtomicLongArray array) throws IOException {
 		int len = array.length();
 		NaturalNumberIoHelper.writeNaturalNumber(out, len);
 		for (int i=0; i<len; i++) {

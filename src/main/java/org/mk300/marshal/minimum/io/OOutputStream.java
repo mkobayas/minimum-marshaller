@@ -88,7 +88,7 @@ public final class OOutputStream extends DataOutputStream {
 			}
 			
 			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
-			m.writeObject(this, o);
+//			m.writeObject(this, o);
 			
 		} else {
 			short id = HandlerRegistry.getClassId(oClazz);
@@ -102,7 +102,7 @@ public final class OOutputStream extends DataOutputStream {
 				m = HandlerRegistry.getMarshallHandler(id);
 			}
 			
-			m.writeObject(this, o);
+//			m.writeObject(this, o);
 		}
 		nestCount--;
 	}

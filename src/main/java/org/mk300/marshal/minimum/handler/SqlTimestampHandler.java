@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
+import org.mk300.marshal.minimum.io.OOutputStream2;
 
 /**
  * 
@@ -32,7 +32,7 @@ import org.mk300.marshal.minimum.io.OOutputStream;
 public class SqlTimestampHandler implements MarshalHandler<Timestamp> {
 
 	@Override
-	public void writeObject(OOutputStream out, Timestamp timestamp) throws IOException {
+	public void writeObject(OOutputStream2 out, Timestamp timestamp) throws IOException {
 		out.writeLong(timestamp.getTime());
 		out.writeInt(timestamp.getNanos());
 	}
