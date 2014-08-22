@@ -1,7 +1,10 @@
 package org.mk300.marshal.minimum.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.PriorityQueue;
 import java.util.concurrent.SynchronousQueue;
 
 import org.apache.commons.io.HexDump;
@@ -47,28 +50,26 @@ public class SynchronousQueueTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			SynchronousQueue o = (SynchronousQueue)ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			Field f = SynchronousQueue.class.getDeclaredField("transferer");
-//			f.setAccessible(true);
-//			
-//			if( ! f.get(target).getClass().equals(f.get(o).getClass())) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//			
-//		} finally {
-//		}
+		try {
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			SynchronousQueue o = (SynchronousQueue)MinimumMarshaller.unmarshal(bais);
+			
+			// 正確に復元されていることの検証
+			Field f = SynchronousQueue.class.getDeclaredField("transferer");
+			f.setAccessible(true);
+			
+			if( ! f.get(target).getClass().equals(f.get(o).getClass())) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+			
+		} finally {
+		}
 	}
 }

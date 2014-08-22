@@ -1,5 +1,6 @@
 package org.mk300.marshal.minimum.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -67,48 +68,45 @@ public class ArrayBlockingQueueTest {
 		} finally {
 		}
 		
-//		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			ArrayBlockingQueue<Date> o = (ArrayBlockingQueue<Date>)ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			if( o.size() != target.size()) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//			
-//			if( o.remainingCapacity() != target.remainingCapacity()) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//	
-//			Date[] desr = o.toArray(new Date[0]);
-//			Date[] origin = target.toArray(new Date[0]);
-//			
-//			for(int i=0; i<desr.length ; i++) {
-//				if(desr[i] == null && origin[i] == null) {
-//					continue;
-//				}
-//				
-//				if(desr[i] == null || origin[i] == null) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//				}
-//				
-//				if( ! desr[i].equals(origin[i])) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//					
-//				}
-//			}
-//			
-//		} finally {
-//		}
+		// おまけ 普通のByteArray*Streamも使えるか？
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			ArrayBlockingQueue<Date> o = (ArrayBlockingQueue<Date>)MinimumMarshaller.unmarshal(bais);
+			
+			// 正確に復元されていることの検証
+			if( o.size() != target.size()) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+			
+			if( o.remainingCapacity() != target.remainingCapacity()) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+	
+			Date[] desr = o.toArray(new Date[0]);
+			Date[] origin = target.toArray(new Date[0]);
+			
+			for(int i=0; i<desr.length ; i++) {
+				if(desr[i] == null && origin[i] == null) {
+					continue;
+				}
+				
+				if(desr[i] == null || origin[i] == null) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+				}
+				
+				if( ! desr[i].equals(origin[i])) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+					
+				}
+			}
+			
+		} finally {
+		}
 	}
 }

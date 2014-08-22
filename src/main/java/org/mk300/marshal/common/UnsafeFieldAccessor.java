@@ -17,8 +17,6 @@ package org.mk300.marshal.common;
 
 import java.lang.reflect.Field;
 
-import sun.misc.Unsafe;
-
 /**
  * 
  * @author mkobayas@redhat.com
@@ -26,16 +24,6 @@ import sun.misc.Unsafe;
  */
 @SuppressWarnings({"restriction", "rawtypes"})
 public final class UnsafeFieldAccessor {
-	private static Unsafe unsafe;
-	static {
-		try {
-			Field field = Unsafe.class.getDeclaredField("theUnsafe");
-			field.setAccessible(true);
-			unsafe = (Unsafe) field.get(null);
-		} catch (Exception e) {
-			throw new Error("NG unsafe", e);
-		}
-	}
 	
 	public static UnsafeFieldAccessor[] convert(Field[] f) {
 		UnsafeFieldAccessor[] ret = new UnsafeFieldAccessor[f.length];
@@ -53,7 +41,7 @@ public final class UnsafeFieldAccessor {
 	
 	private UnsafeFieldAccessor(Field f) {
 		this.f = f;
-		offset = unsafe.objectFieldOffset(f);
+		offset = TheUnsafe.unsafe.objectFieldOffset(f);
 		type = f.getType();
 	}
 	
@@ -62,74 +50,74 @@ public final class UnsafeFieldAccessor {
 	}
 	
 	public final Object get(Object obj) {
-		return unsafe.getObject(obj, offset);
+		return TheUnsafe.unsafe.getObject(obj, offset);
 	}
 
 	public final boolean getBoolean(Object obj) {
-		return unsafe.getBoolean(obj, offset);
+		return TheUnsafe.unsafe.getBoolean(obj, offset);
 	}
 
 	public final byte getByte(Object obj) {
-		return unsafe.getByte(obj, offset);
+		return TheUnsafe.unsafe.getByte(obj, offset);
 	}
 
 	public final char getChar(Object obj) {
-		return unsafe.getChar(obj, offset);
+		return TheUnsafe.unsafe.getChar(obj, offset);
 	}
 
 	public final short getShort(Object obj) {
-		return unsafe.getShort(obj, offset);
+		return TheUnsafe.unsafe.getShort(obj, offset);
 	}
 
 	public final int getInt(Object obj) {
-		return unsafe.getInt(obj, offset);
+		return TheUnsafe.unsafe.getInt(obj, offset);
 	}
 
 	public final long getLong(Object obj) {
-		return unsafe.getLong(obj, offset);
+		return TheUnsafe.unsafe.getLong(obj, offset);
 	}
 
 	public final float getFloat(Object obj) {
-		return unsafe.getFloat(obj, offset);
+		return TheUnsafe.unsafe.getFloat(obj, offset);
 	}
 
 	public final double getDouble(Object obj) {
-		return unsafe.getDouble(obj, offset);
+		return TheUnsafe.unsafe.getDouble(obj, offset);
 	}
 
 	public final void set(Object obj, Object value) {
-		unsafe.putObject(obj, offset, value);
+		TheUnsafe.unsafe.putObject(obj, offset, value);
 	}
 
 	public final void setBoolean(Object obj, boolean z) {
-		unsafe.putBoolean(obj, offset, z);
+		TheUnsafe.unsafe.putBoolean(obj, offset, z);
 	}
 
 	public final void setByte(Object obj, byte b) {
-		unsafe.putByte(obj, offset, b);
+		TheUnsafe.unsafe.putByte(obj, offset, b);
 	}
 
 	public final void setChar(Object obj, char c) {
-		unsafe.putChar(obj, offset, c);
+		TheUnsafe.unsafe.putChar(obj, offset, c);
 	}
 
 	public final void setShort(Object obj, short s) {
-		unsafe.putShort(obj, offset, s);
+		TheUnsafe.unsafe.putShort(obj, offset, s);
 	}
 
 	public final void setInt(Object obj, int i) {
-		unsafe.putInt(obj, offset, i);
+		TheUnsafe.unsafe.putInt(obj, offset, i);
 	}
 
 	public final void setLong(Object obj, long l) {
-		unsafe.putLong(obj, offset, l);
+		TheUnsafe.unsafe.putLong(obj, offset, l);
 	}
 
 	public final void setFloat(Object obj, float f) {
-		unsafe.putFloat(obj, offset, f);
+		TheUnsafe.unsafe.putFloat(obj, offset, f);
 	}
 	public final void setDouble(Object obj, double d) {
-		unsafe.putDouble(obj, offset, d);
+		TheUnsafe.unsafe.putDouble(obj, offset, d);
 	}
 
 	@Override

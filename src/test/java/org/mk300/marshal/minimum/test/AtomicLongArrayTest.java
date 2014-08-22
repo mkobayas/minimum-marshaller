@@ -1,6 +1,8 @@
 package org.mk300.marshal.minimum.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.concurrent.atomic.AtomicLongArray;
 
 import org.apache.commons.io.HexDump;
@@ -51,31 +53,28 @@ public class AtomicLongArrayTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			AtomicLongArray o = (AtomicLongArray)ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			if( o.length() != target.length()) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//			for(int i=0; i<target.length() ; i++) {
-//				if( o.get(i) != target.get(i)) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//					
-//				}
-//			}
-//			
-//		} finally {
-//		}
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			AtomicLongArray o = (AtomicLongArray)MinimumMarshaller.unmarshal(bais);
+			
+			// 正確に復元されていることの検証
+			if( o.length() != target.length()) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+			for(int i=0; i<target.length() ; i++) {
+				if( o.get(i) != target.get(i)) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+					
+				}
+			}
+			
+		} finally {
+		}
 	}
 }

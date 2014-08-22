@@ -1,8 +1,10 @@
 package org.mk300.marshal.minimum.test;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Array;
+import java.util.concurrent.SynchronousQueue;
 
 import org.apache.commons.io.HexDump;
 import org.mk300.marshal.minimum.MinimumMarshaller;
@@ -30,27 +32,25 @@ public class TestUtil {
 		} finally {
 		}
 		
-//		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			Object o = ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			if( ! o.equals(target) ) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//			
-//		} finally {
-//		}
+		// おまけ 普通のByteArray*Streamも使えるか？
+		try {
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			Object o = MinimumMarshaller.unmarshal(bais);
+			
+			// 正確に復元されていることの検証
+			if( ! o.equals(target) ) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+			
+		} finally {
+		}
 	}
 	
 	public static void testAndPrintHexAndCheckForArray(Object target) throws Exception{

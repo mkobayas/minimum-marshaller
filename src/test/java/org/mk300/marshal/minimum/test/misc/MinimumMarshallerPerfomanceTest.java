@@ -38,6 +38,7 @@ public class MinimumMarshallerPerfomanceTest {
 			THREADS = 1;
 		}
 
+		System.out.println("MinimumMarshaller");
 		
 		System.out.println("RampUP");
 		o.testThread(true, value_POJO001, 1000, THREADS);
@@ -47,19 +48,19 @@ public class MinimumMarshallerPerfomanceTest {
 		o.testThread(true, value_POJO050, 1000, THREADS);
 		o.testThread(true, value_POJO100, 1000, THREADS);
 		
-//		o.testThread(true, value_POJO00A, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00B, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00C, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00D, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00E, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00F, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00G, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00H, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00I, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00J, 1000, CPU_NUM-1);
-//		o.testThread(true, value_POJO00K, 1000, CPU_NUM-1);
-
-		System.out.println("Start");
+		o.testThread(true, value_POJO00A, 1000, THREADS);
+		o.testThread(true, value_POJO00B, 1000, THREADS);
+		o.testThread(true, value_POJO00C, 1000, THREADS);
+		o.testThread(true, value_POJO00D, 1000, THREADS);
+		o.testThread(true, value_POJO00E, 1000, THREADS);
+		o.testThread(true, value_POJO00F, 1000, THREADS);
+		o.testThread(true, value_POJO00G, 1000, THREADS);
+		o.testThread(true, value_POJO00H, 1000, THREADS);
+		o.testThread(true, value_POJO00I, 1000, THREADS);
+		o.testThread(true, value_POJO00J, 1000, THREADS);
+		o.testThread(true, value_POJO00K, 1000, THREADS);
+//
+//		System.out.println("Start");
 		o.testThread(false, value_POJO001, 3000, THREADS);
 		o.testThread(false, value_POJO005, 3000, THREADS);
 		o.testThread(false, value_POJO010, 3000, THREADS);
@@ -77,7 +78,7 @@ public class MinimumMarshallerPerfomanceTest {
 		o.testThread(false, value_POJO00H, 3000, THREADS);
 		o.testThread(false, value_POJO00I, 3000, THREADS);
 		o.testThread(false, value_POJO00J, 3000, THREADS);
-//		o.testThread(false, value_POJO00K, 3000, CPU_NUM-1);
+		o.testThread(false, value_POJO00K, 3000, THREADS);
 
 		System.out.println("Done");
 	}
@@ -89,32 +90,45 @@ public class MinimumMarshallerPerfomanceTest {
 		final CountDownLatch startLatch = new CountDownLatch(1);
 		final CountDownLatch endLatch = new CountDownLatch(threadNum);
 		final AtomicLong count = new AtomicLong(0);
+		final AtomicLong mTime = new AtomicLong(0);
+		final AtomicLong uTime = new AtomicLong(0);
 		for(int i=0; i<threadNum ; i++) {
 			Thread t = new Thread(new Runnable() {
+				long p1, p2, p3, p4, p5;
+				public long sum(){return p1+p2+p3+p4+p5;} // avoid false sharing.
 				@Override
 				public void run() {
 
 					long localCount = 0;
+					long marTime=0, unmarTime=0;
 					try {
-//						byte[] b = m.objectToByteBuffer(target);
 						
 						startLatch.await();
 						long end = System.currentTimeMillis() + time;
+						byte[] b = null;
+						long start = 0;
 						while(System.currentTimeMillis() < end) {
-							byte[] b =MinimumMarshaller.marshal(target);
+							
+							start = System.nanoTime();
+							b =MinimumMarshaller.marshal(target, 32);
+							marTime += (System.nanoTime() - start);
+							
+							start = System.nanoTime();
 							MinimumMarshaller.unmarshal(b);
+							unmarTime += (System.nanoTime() - start);
 							
 //							if(!target.equals(o)) {
 //								throw new RuntimeException();
 //							}
 							
-							//
 							localCount++;
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {
 						count.addAndGet(localCount);
+						mTime.addAndGet(marTime);
+						uTime.addAndGet(unmarTime);
 						endLatch.countDown();
 					}
 				}
@@ -127,7 +141,11 @@ public class MinimumMarshallerPerfomanceTest {
 		endLatch.await();
 		
 		if( rampup == false) {
-			System.out.println(threadNum + " Thread throghput = " +  String.format("%12s", String.format("%,d",  (long)(((double)count.get())*1000d/time) )) + ", obj=" + target.getClass().getSimpleName());
+			System.out.println(threadNum + " Thread throghput = " +  String.format("%12s", String.format("%,d",  (long)(((double)count.get())*1000d/time) )) + ", obj=" + target.getClass().getSimpleName()
+					 + ", total run=" + String.format("%15s", String.format("%,d", count.get()) )
+					 + ", mTime = " +  String.format("%7s", String.format("%,d",  (long)(((double)mTime.get())/count.get()) ))
+					 + ", uTime = " +  String.format("%7s", String.format("%,d",  (long)(((double)uTime.get())/count.get()) )));
+
 		}
 	}
 	

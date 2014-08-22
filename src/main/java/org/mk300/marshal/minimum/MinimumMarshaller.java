@@ -17,10 +17,15 @@
 package org.mk300.marshal.minimum;
 
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OInputImpl;
 import org.mk300.marshal.minimum.io.OOutput;
+import org.mk300.marshal.minimum.io.OOutputImpl;
 
 
 /**
@@ -31,7 +36,7 @@ import org.mk300.marshal.minimum.io.OOutput;
 public class MinimumMarshaller {
 	
 	public static byte[] marshal(Object obj, int estimatedSize) throws IOException {
-		OOutput oos = new OOutput(estimatedSize);
+		OOutput oos = new OOutputImpl(estimatedSize);
 		oos.writeObject(obj);
 		return oos.toBytes();
 	}
@@ -41,7 +46,52 @@ public class MinimumMarshaller {
 	}
 
 	public static Object unmarshal(byte[] buf) throws IOException {
-		OInput ois = new OInput(buf);
+		OInput ois = new OInputImpl(buf);
 		return ois.readObject();
+	}
+	
+	
+	public static int marshal(Object obj, int estimatedSize, OutputStream out) throws IOException {
+		byte[] bin  = marshal(obj, estimatedSize);
+		int len = bin.length;
+        out.write((len >>> 24) & 0xFF);
+        out.write((len >>> 16) & 0xFF);
+        out.write((len >>>  8) & 0xFF);
+        out.write((len >>>  0) & 0xFF);
+		out.write(bin);
+		out.flush();
+		return len;
+	}
+
+	public static int marshal(Object obj, OutputStream out) throws IOException {
+		byte[] bin  = marshal(obj, 32);
+		int len = bin.length;
+        out.write((len >>> 24) & 0xFF);
+        out.write((len >>> 16) & 0xFF);
+        out.write((len >>>  8) & 0xFF);
+        out.write((len >>>  0) & 0xFF);
+		out.write(bin);
+		out.flush();
+		return bin.length;
+	}
+	
+	public static Object unmarshal(InputStream in) throws IOException {
+        int ch1 = in.read();
+        int ch2 = in.read();
+        int ch3 = in.read();
+        int ch4 = in.read();
+        if ((ch1 | ch2 | ch3 | ch4) < 0)
+            throw new EOFException();
+        int len = ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
+        byte[] buf = new byte[len];
+        int n = 0;
+        while (n < len) {
+            int count = in.read(buf, 0 + n, len - n);
+            if (count < 0)
+                throw new EOFException();
+            n += count;
+        }
+		OInput oi = new OInputImpl(buf);
+		return oi.readObject();
 	}
 }

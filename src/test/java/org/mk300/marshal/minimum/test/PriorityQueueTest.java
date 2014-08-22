@@ -1,8 +1,10 @@
 package org.mk300.marshal.minimum.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import org.apache.commons.io.HexDump;
 import org.junit.Test;
@@ -91,43 +93,41 @@ public class PriorityQueueTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			PriorityQueue<Date> o = (PriorityQueue<Date>)ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			if( o.size() != target.size()) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//	
-//			Object[] desr = o.toArray(new Object[0]);
-//			Object[] origin = target.toArray(new Object[0]);
-//			
-//			for(int i=0; i<desr.length ; i++) {
-//				if(desr[i] == null && origin[i] == null) {
-//					continue;
-//				}
-//				
-//				if(desr[i] == null || origin[i] == null) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//				}
-//				
-//				if( ! desr[i].equals(origin[i])) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//					
-//				}
-//			}
-//			
-//		} finally {
-//		}
+		try {
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			PriorityQueue<Date> o = (PriorityQueue<Date>)MinimumMarshaller.unmarshal(bais);
+			
+			// 正確に復元されていることの検証
+			if( o.size() != target.size()) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+	
+			Object[] desr = o.toArray(new Object[0]);
+			Object[] origin = target.toArray(new Object[0]);
+			
+			for(int i=0; i<desr.length ; i++) {
+				if(desr[i] == null && origin[i] == null) {
+					continue;
+				}
+				
+				if(desr[i] == null || origin[i] == null) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+				}
+				
+				if( ! desr[i].equals(origin[i])) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+					
+				}
+			}
+			
+		} finally {
+		}
 	}
 }

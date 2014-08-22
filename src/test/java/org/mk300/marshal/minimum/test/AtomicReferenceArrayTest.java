@@ -1,7 +1,9 @@
 package org.mk300.marshal.minimum.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLongArray;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import org.apache.commons.io.HexDump;
@@ -62,41 +64,40 @@ public class AtomicReferenceArrayTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-//		try {
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//			OOutputStream oos = new OOutputStream(baos);
-//			
-//			oos.writeObject(target);
-//			
-//			byte[] bytes = baos.toByteArray();
-//			
-//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//			OInputStream ois = new OInputStream(bais);
-//			
-//			AtomicReferenceArray o = (AtomicReferenceArray)ois.readObject();
-//			
-//			// 正確に復元されていることの検証
-//			if( o.length() != target.length()) {
-//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//			}
-//			
-//			
-//			for(int i=0; i<target.length() ; i++) {
-//				if(o.get(i) == null && target.get(i) == null) {
-//					continue;
-//				}
-//				
-//				if(o.get(i) == null || target.get(i) == null) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//				}
-//				
-//				if( ! o.get(i).equals(target.get(i))) {
-//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-//					
-//				}
-//			}
-//			
-//		} finally {
-//		}
+		try {
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimumMarshaller.marshal(target, baos);
+			
+			byte[] bytes = baos.toByteArray();
+			
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			AtomicReferenceArray o = (AtomicReferenceArray)MinimumMarshaller.unmarshal(bais);
+			
+			
+			// 正確に復元されていることの検証
+			if( o.length() != target.length()) {
+				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+			}
+			
+			
+			for(int i=0; i<target.length() ; i++) {
+				if(o.get(i) == null && target.get(i) == null) {
+					continue;
+				}
+				
+				if(o.get(i) == null || target.get(i) == null) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+				}
+				
+				if( ! o.get(i).equals(target.get(i))) {
+					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+					
+				}
+			}
+			
+		} finally {
+		}
 	}
 }

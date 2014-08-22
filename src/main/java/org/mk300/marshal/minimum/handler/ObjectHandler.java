@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import org.mk300.marshal.common.MarshalException;
+import org.mk300.marshal.common.TheUnsafe;
 import org.mk300.marshal.common.UnsafeClassMetaDataRegistry;
 import org.mk300.marshal.common.UnsafeFieldAccessor;
 import org.mk300.marshal.minimum.MarshalHandler;
@@ -38,17 +39,6 @@ import sun.misc.Unsafe;
  */
 @SuppressWarnings("restriction")
 public final class ObjectHandler implements MarshalHandler<Object> {
-	
-	private static final Unsafe unsafe;
-	static {
-		try {
-			Field field = Unsafe.class.getDeclaredField("theUnsafe");
-			field.setAccessible(true);
-			unsafe = (Unsafe) field.get(null);
-		} catch (Exception e) {
-			throw new Error("NG unsafe", e);
-		}
-	}
 	
 	@Override
 	public final void writeObject(OOutput out, Object o) throws IOException {
@@ -138,7 +128,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 		
 		try {
 
-			Object data = unsafe.allocateInstance(clazz);
+			Object data = TheUnsafe.unsafe.allocateInstance(clazz);
 			
 			int binarySize = in.readInt();
 			
