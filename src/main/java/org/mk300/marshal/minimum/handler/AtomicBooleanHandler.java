@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,12 +32,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class AtomicBooleanHandler implements MarshalHandler<AtomicBoolean> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, AtomicBoolean b) throws IOException {
+	public void writeObject(OOutput out, AtomicBoolean b) throws IOException {
 		out.writeBoolean(b.get());	
 	}
 
 	@Override
-	public AtomicBoolean readObject(OInputStream in, Class<AtomicBoolean> clazz) throws IOException {
+	public AtomicBoolean readObject(OInput in, Class<AtomicBoolean> clazz) throws IOException {
 		boolean bool = in.readBoolean();
 		AtomicBoolean b = new AtomicBoolean(bool);
 		return b;

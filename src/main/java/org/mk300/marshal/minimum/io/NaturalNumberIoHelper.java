@@ -16,8 +16,6 @@
 
 package org.mk300.marshal.minimum.io;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
@@ -31,12 +29,12 @@ import java.io.IOException;
  * @author mkobayas@redhat.com
  *
  */
-public class NaturalNumberIoHelper {
+public final class NaturalNumberIoHelper {
 
-	private static int dv1 = 128;     // 7bit 2^7
-	private static int dv2 = 16384;     // 14bit 2^14
-	private static int dv3 = 2097152;     // 21bit 2^21
-	private static int dv4 = 268435456;     // 28bit 2^28
+	private final static int dv1 = 128;     // 7bit 2^7
+	private final static int dv2 = 16384;     // 14bit 2^14
+	private final static int dv3 = 2097152;     // 21bit 2^21
+	private final static int dv4 = 268435456;     // 28bit 2^28
 
 
 	/**
@@ -51,7 +49,7 @@ public class NaturalNumberIoHelper {
 	 * @param naturalNumber
 	 * @throws IOException
 	 */
-	public static final void writeNaturalNumber(OOutputStream2 dos, int naturalNumber) throws IOException {
+	public static final void writeNaturalNumber(OOutput dos, int naturalNumber) throws IOException {
 		if(naturalNumber < 0) {
 			throw new IOException(naturalNumber + " is not natural number");
 		}
@@ -104,7 +102,7 @@ public class NaturalNumberIoHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static final int readNaturalNumber(DataInputStream dis) throws IOException {
+	public static final int readNaturalNumber(OInput dis) throws IOException {
 
 		int naturalNumber = 0;
 		byte b1 = dis.readByte();

@@ -22,8 +22,8 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class AtomicReferenceArrayHandler implements MarshalHandler<AtomicReferenceArray> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, AtomicReferenceArray array) throws IOException {
+	public void writeObject(OOutput out, AtomicReferenceArray array) throws IOException {
 		int len = array.length();
 		NaturalNumberIoHelper.writeNaturalNumber(out, len);
 		for (int i=0; i<len; i++) {
@@ -44,7 +44,7 @@ public class AtomicReferenceArrayHandler implements MarshalHandler<AtomicReferen
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AtomicReferenceArray readObject(OInputStream in, Class<AtomicReferenceArray> clazz) throws IOException {
+	public AtomicReferenceArray readObject(OInput in, Class<AtomicReferenceArray> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		AtomicReferenceArray array = new AtomicReferenceArray(size);
 

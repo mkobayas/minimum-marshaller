@@ -1,6 +1,5 @@
 package org.mk300.marshal.minimum.test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -8,8 +7,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.commons.io.HexDump;
 import org.junit.Test;
 import org.mk300.marshal.minimum.MinimumMarshaller;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class LinkedBlockingQueueTest {
@@ -71,47 +68,47 @@ public class LinkedBlockingQueueTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			OOutputStream oos = new OOutputStream(baos);
-			
-			oos.writeObject(target);
-			
-			byte[] bytes = baos.toByteArray();
-			
-			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-			OInputStream ois = new OInputStream(bais);
-			
-			LinkedBlockingQueue<Date> o = (LinkedBlockingQueue<Date>)ois.readObject();
-			
-			// 正確に復元されていることの検証
-			if( o.size() != target.size()) {
-				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-			}
-			
-			if( o.remainingCapacity() != target.remainingCapacity()) {
-				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-			}
-	
-			Date[] desr = o.toArray(new Date[0]);
-			Date[] origin = target.toArray(new Date[0]);
-			
-			for(int i=0; i<desr.length ; i++) {
-				if(desr[i] == null && origin[i] == null) {
-					continue;
-				}
-				
-				if(desr[i] == null || origin[i] == null) {
-					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-				}
-				
-				if( ! desr[i].equals(origin[i])) {
-					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-					
-				}
-			}
-			
-		} finally {
-		}
+//		try {
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			OOutputStream oos = new OOutputStream(baos);
+//			
+//			oos.writeObject(target);
+//			
+//			byte[] bytes = baos.toByteArray();
+//			
+//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//			OInputStream ois = new OInputStream(bais);
+//			
+//			LinkedBlockingQueue<Date> o = (LinkedBlockingQueue<Date>)ois.readObject();
+//			
+//			// 正確に復元されていることの検証
+//			if( o.size() != target.size()) {
+//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//			}
+//			
+//			if( o.remainingCapacity() != target.remainingCapacity()) {
+//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//			}
+//	
+//			Date[] desr = o.toArray(new Date[0]);
+//			Date[] origin = target.toArray(new Date[0]);
+//			
+//			for(int i=0; i<desr.length ; i++) {
+//				if(desr[i] == null && origin[i] == null) {
+//					continue;
+//				}
+//				
+//				if(desr[i] == null || origin[i] == null) {
+//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//				}
+//				
+//				if( ! desr[i].equals(origin[i])) {
+//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//					
+//				}
+//			}
+//			
+//		} finally {
+//		}
 	}
 }

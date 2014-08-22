@@ -26,8 +26,8 @@ import java.util.Set;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 /**
@@ -49,7 +49,7 @@ public class EnumMapHandler implements MarshalHandler<EnumMap> {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void writeObject(OOutputStream2 out, EnumMap map) throws IOException {
+	public void writeObject(OOutput out, EnumMap map) throws IOException {
 		Class type;
 		try {
 			type = (Class)f.get(map);
@@ -74,7 +74,7 @@ public class EnumMapHandler implements MarshalHandler<EnumMap> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public EnumMap readObject(OInputStream in, Class<EnumMap> clazz) throws IOException {
+	public EnumMap readObject(OInput in, Class<EnumMap> clazz) throws IOException {
 
 		// key type
 		short id = in.readShort();

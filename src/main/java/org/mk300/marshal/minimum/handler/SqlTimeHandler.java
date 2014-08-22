@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.sql.Time;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,12 +32,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class SqlTimeHandler implements MarshalHandler<Time> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Time time) throws IOException {
+	public void writeObject(OOutput out, Time time) throws IOException {
 		out.writeLong(time.getTime());
 	}
 
 	@Override
-	public Time readObject(OInputStream in, Class<Time> clazz) throws IOException {
+	public Time readObject(OInput in, Class<Time> clazz) throws IOException {
 		long time = in.readLong();
 		Time t = new Time(time);
 		return t;

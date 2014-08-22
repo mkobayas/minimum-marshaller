@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,12 +32,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class AtomicIntegerHandler implements MarshalHandler<AtomicInteger> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, AtomicInteger number) throws IOException {	
+	public void writeObject(OOutput out, AtomicInteger number) throws IOException {	
 		out.writeInt(number.get());	
 	}
 
 	@Override
-	public AtomicInteger readObject(OInputStream in, Class<AtomicInteger> clazz) throws IOException {
+	public AtomicInteger readObject(OInput in, Class<AtomicInteger> clazz) throws IOException {
 		int num = in.readInt();
 		AtomicInteger number = new AtomicInteger(num);
 		return number;

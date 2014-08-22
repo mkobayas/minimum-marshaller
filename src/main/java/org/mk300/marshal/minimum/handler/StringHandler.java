@@ -20,8 +20,8 @@ package org.mk300.marshal.minimum.handler;
 import java.io.IOException;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -31,12 +31,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class StringHandler implements MarshalHandler<String> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, String s) throws IOException {
+	public void writeObject(OOutput out, String s) throws IOException {
 		out.writeString(s);
 	}
 
 	@Override
-	public String readObject(OInputStream in, Class<String> clazz) throws IOException {
+	public String readObject(OInput in, Class<String> clazz) throws IOException {
 		return in.readString();			
 	}
 }

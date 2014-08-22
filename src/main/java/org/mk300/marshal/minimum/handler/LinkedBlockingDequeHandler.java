@@ -22,8 +22,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class LinkedBlockingDequeHandler implements MarshalHandler<LinkedBlockingDeque> {
 	
 	@Override
-	public void writeObject(OOutputStream2 out, LinkedBlockingDeque queue) throws IOException {
+	public void writeObject(OOutput out, LinkedBlockingDeque queue) throws IOException {
 		// LinkedBlockingDequeHandlerの内部ReentrantLockを利用する必要があるか？
 		
 		// capacity
@@ -51,7 +51,7 @@ public class LinkedBlockingDequeHandler implements MarshalHandler<LinkedBlocking
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public LinkedBlockingDeque readObject(OInputStream in, Class<LinkedBlockingDeque> clazz) throws IOException {
+	public LinkedBlockingDeque readObject(OInput in, Class<LinkedBlockingDeque> clazz) throws IOException {
 		int capacity = NaturalNumberIoHelper.readNaturalNumber(in);
 		LinkedBlockingDeque queue = new LinkedBlockingDeque(capacity);
 		

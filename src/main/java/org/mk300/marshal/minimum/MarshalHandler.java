@@ -19,8 +19,8 @@ package org.mk300.marshal.minimum;
 
 import java.io.IOException;
 
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -28,6 +28,6 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
  *
  */
 public interface MarshalHandler<T> {
-	public void writeObject(OOutputStream2 oOutputStream2, T o) throws IOException;
-	public T readObject(OInputStream in, Class<T> clazz) throws IOException;
+	public void writeObject(OOutput oOutputStream2, T o) throws IOException;
+	public T readObject(OInput in, Class<T> clazz) throws IOException;
 }

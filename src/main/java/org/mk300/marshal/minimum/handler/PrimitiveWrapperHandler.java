@@ -21,8 +21,8 @@ import java.io.IOException;
 
 import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -33,7 +33,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class PrimitiveWrapperHandler implements MarshalHandler {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Object o) throws IOException {
+	public void writeObject(OOutput out, Object o) throws IOException {
 		Class<?> c = o.getClass();
 		if(c == Integer.class){
 			out.writeInt((Integer)o);
@@ -62,7 +62,7 @@ public class PrimitiveWrapperHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class c) throws IOException {
+	public Object readObject(OInput in, Class c) throws IOException {
 		
 		if(c == Integer.class){
 			return in.readInt();

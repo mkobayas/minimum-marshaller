@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -35,7 +35,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class ConcurrentSkipListSetHandler implements MarshalHandler<ConcurrentSkipListSet> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, ConcurrentSkipListSet set) throws IOException {
+	public void writeObject(OOutput out, ConcurrentSkipListSet set) throws IOException {
 		out.writeObject(set.comparator());
 		NaturalNumberIoHelper.writeNaturalNumber(out, set.size());
 		for(Object element : set) {
@@ -45,7 +45,7 @@ public class ConcurrentSkipListSetHandler implements MarshalHandler<ConcurrentSk
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ConcurrentSkipListSet readObject(OInputStream in, Class<ConcurrentSkipListSet> clazz) throws IOException {
+	public ConcurrentSkipListSet readObject(OInput in, Class<ConcurrentSkipListSet> clazz) throws IOException {
 		Comparator comparator = (Comparator)in.readObject();
 		ConcurrentSkipListSet set = new ConcurrentSkipListSet(comparator);
 		

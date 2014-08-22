@@ -23,8 +23,8 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -35,7 +35,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class PriorityBlockingQueueHandler implements MarshalHandler<PriorityBlockingQueue> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, PriorityBlockingQueue queue) throws IOException {
+	public void writeObject(OOutput out, PriorityBlockingQueue queue) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, queue.size());
 		out.writeObject(queue.comparator());
 		for(Object element : queue) {
@@ -45,7 +45,7 @@ public class PriorityBlockingQueueHandler implements MarshalHandler<PriorityBloc
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PriorityBlockingQueue readObject(OInputStream in, Class<PriorityBlockingQueue> clazz) throws IOException {
+	public PriorityBlockingQueue readObject(OInput in, Class<PriorityBlockingQueue> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		
 		Comparator comparator = (Comparator)in.readObject();

@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,13 +32,13 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class SqlTimestampHandler implements MarshalHandler<Timestamp> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Timestamp timestamp) throws IOException {
+	public void writeObject(OOutput out, Timestamp timestamp) throws IOException {
 		out.writeLong(timestamp.getTime());
 		out.writeInt(timestamp.getNanos());
 	}
 
 	@Override
-	public Timestamp readObject(OInputStream in, Class<Timestamp> clazz) throws IOException {
+	public Timestamp readObject(OInput in, Class<Timestamp> clazz) throws IOException {
 		long time = in.readLong();
 		int nano = in.readInt();
 		Timestamp t = new Timestamp(time);

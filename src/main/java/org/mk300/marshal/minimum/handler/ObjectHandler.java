@@ -24,10 +24,9 @@ import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.common.UnsafeClassMetaDataRegistry;
 import org.mk300.marshal.common.UnsafeFieldAccessor;
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.BAInputStream;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 import sun.misc.Unsafe;
 
@@ -52,7 +51,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	}
 	
 	@Override
-	public final void writeObject(OOutputStream2 out, Object o) throws IOException {
+	public final void writeObject(OOutput out, Object o) throws IOException {
 
 		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 
@@ -134,7 +133,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 	//   従って、バイナリの最後のほうが切り捨てられる。
 	
 	@Override
-	public final Object readObject(OInputStream in, Class<Object> clazz) throws IOException {
+	public final Object readObject(OInput in, Class<Object> clazz) throws IOException {
 		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 		
 		try {
@@ -142,20 +141,21 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 			Object data = unsafe.allocateInstance(clazz);
 			
 			int binarySize = in.readInt();
+			
+//			BAInputStream bais;
+//			if( in.isUnderlayBAIn() ) {
+//				BAInputStream underlay = in.getUnderlayBAIn();
+//				bais = new BAInputStream(underlay.getBuf(), underlay.getPos(), binarySize);
+//				in.skip(binarySize);
+//			} else {
+//				byte[] binary = new byte[binarySize];
+//				in.readFully(binary);
+//				bais = new BAInputStream(binary);
+//			}
 
-			
-			BAInputStream bais;
-			if( in.isUnderlayBAIn() ) {
-				BAInputStream underlay = in.getUnderlayBAIn();
-				bais = new BAInputStream(underlay.getBuf(), underlay.getPos(), binarySize);
-				in.skip(binarySize);
-			} else {
-				byte[] binary = new byte[binarySize];
-				in.readFully(binary);
-				bais = new BAInputStream(binary);
-			}
-			OInputStream ois = new OInputStream(bais);
-			
+			// 項目数が少ない場合に対応するため、OIputStreamをブランチする。
+			OInput ois = in.branch();
+			in.skip(binarySize);
 			
 			// Beanクラスに項目追加があった場合、読み込み側で処理を打ち切る為に利用される
 			int fieldCount = NaturalNumberIoHelper.readNaturalNumber(ois);

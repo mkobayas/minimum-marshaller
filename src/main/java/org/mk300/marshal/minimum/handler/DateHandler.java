@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,12 +32,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class DateHandler implements MarshalHandler<Date> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Date date) throws IOException {
+	public void writeObject(OOutput out, Date date) throws IOException {
 		out.writeLong(date.getTime());
 	}
 
 	@Override
-	public Date readObject(OInputStream in, Class<Date> clazz) throws IOException {
+	public Date readObject(OInput in, Class<Date> clazz) throws IOException {
 		long time = in.readLong();
 		Date date = new Date(time);
 		return date;

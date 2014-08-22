@@ -22,8 +22,8 @@ import java.io.IOException;
 import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class PrimitiveArrayHandler implements MarshalHandler {
 	private static final Class<? extends char[]> charArrayClass = new char[0].getClass();
 	
 	@Override
-	public void writeObject(OOutputStream2 out, Object o) throws IOException {
+	public void writeObject(OOutput out, Object o) throws IOException {
 		
 		if(o.getClass() == byteArrayClass) {
 			byte[] array = (byte[])o;
@@ -99,7 +99,7 @@ public class PrimitiveArrayHandler implements MarshalHandler {
 	}
 
 	@Override
-	public Object readObject(OInputStream in, Class clazz)
+	public Object readObject(OInput in, Class clazz)
 			throws IOException {
 
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);

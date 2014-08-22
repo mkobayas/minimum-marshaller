@@ -24,7 +24,7 @@ import sun.misc.Unsafe;
  * @author mkobayas@redhat.com
  *
  */
-@SuppressWarnings({"restriction", "unused", "rawtypes"})
+@SuppressWarnings({"restriction", "rawtypes"})
 public final class UnsafeFieldAccessor {
 	private static Unsafe unsafe;
 	static {
@@ -131,4 +131,10 @@ public final class UnsafeFieldAccessor {
 	public final void setDouble(Object obj, double d) {
 		unsafe.putDouble(obj, offset, d);
 	}
+
+	@Override
+	public String toString() {
+		return f.toString();
+	}
+	
 }

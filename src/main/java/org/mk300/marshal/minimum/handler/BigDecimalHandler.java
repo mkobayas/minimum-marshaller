@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.mk300.marshal.minimum.MarshalHandler;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  *  
@@ -32,13 +32,13 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class BigDecimalHandler implements MarshalHandler<BigDecimal> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, BigDecimal number) throws IOException {
+	public void writeObject(OOutput out, BigDecimal number) throws IOException {
 		String str = number.toString();
 		out.writeString(str);
 	}
 
 	@Override
-	public BigDecimal readObject(OInputStream in, Class<BigDecimal> clazz) throws IOException {
+	public BigDecimal readObject(OInput in, Class<BigDecimal> clazz) throws IOException {
 		String str = in.readString();
 		BigDecimal number = new BigDecimal(str);
 		return number;

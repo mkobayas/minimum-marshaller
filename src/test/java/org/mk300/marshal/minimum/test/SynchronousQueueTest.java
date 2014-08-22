@@ -1,6 +1,5 @@
 package org.mk300.marshal.minimum.test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
 import java.util.concurrent.SynchronousQueue;
@@ -8,8 +7,6 @@ import java.util.concurrent.SynchronousQueue;
 import org.apache.commons.io.HexDump;
 import org.junit.Test;
 import org.mk300.marshal.minimum.MinimumMarshaller;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
 
 @SuppressWarnings({"rawtypes"})
 public class SynchronousQueueTest {
@@ -50,28 +47,28 @@ public class SynchronousQueueTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			OOutputStream oos = new OOutputStream(baos);
-			
-			oos.writeObject(target);
-			
-			byte[] bytes = baos.toByteArray();
-			
-			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-			OInputStream ois = new OInputStream(bais);
-			
-			SynchronousQueue o = (SynchronousQueue)ois.readObject();
-			
-			// 正確に復元されていることの検証
-			Field f = SynchronousQueue.class.getDeclaredField("transferer");
-			f.setAccessible(true);
-			
-			if( ! f.get(target).getClass().equals(f.get(o).getClass())) {
-				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-			}
-			
-		} finally {
-		}
+//		try {
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			OOutputStream oos = new OOutputStream(baos);
+//			
+//			oos.writeObject(target);
+//			
+//			byte[] bytes = baos.toByteArray();
+//			
+//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//			OInputStream ois = new OInputStream(bais);
+//			
+//			SynchronousQueue o = (SynchronousQueue)ois.readObject();
+//			
+//			// 正確に復元されていることの検証
+//			Field f = SynchronousQueue.class.getDeclaredField("transferer");
+//			f.setAccessible(true);
+//			
+//			if( ! f.get(target).getClass().equals(f.get(o).getClass())) {
+//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//			}
+//			
+//		} finally {
+//		}
 	}
 }

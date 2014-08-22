@@ -26,8 +26,8 @@ import java.util.TreeMap;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -38,7 +38,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class TreeMapHandler implements MarshalHandler<TreeMap> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, TreeMap map) throws IOException {
+	public void writeObject(OOutput out, TreeMap map) throws IOException {
 		out.writeObject(map.comparator());
 		NaturalNumberIoHelper.writeNaturalNumber(out, map.size());
 		for(Entry element : (Set<Map.Entry>)map.entrySet()) {
@@ -48,7 +48,7 @@ public class TreeMapHandler implements MarshalHandler<TreeMap> {
 	}
 
 	@Override
-	public TreeMap readObject(OInputStream in, Class<TreeMap> clazz) throws IOException {
+	public TreeMap readObject(OInput in, Class<TreeMap> clazz) throws IOException {
 		Comparator comparator = (Comparator)in.readObject();
 		TreeMap map = new TreeMap(comparator);
 		

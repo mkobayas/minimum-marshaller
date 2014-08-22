@@ -22,8 +22,8 @@ import java.util.Collection;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class CollectionHandler implements MarshalHandler<Collection> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Collection list) throws IOException {
+	public void writeObject(OOutput out, Collection list) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, list.size());
 		for(Object element : list) {
 			out.writeObject(element);
@@ -43,7 +43,7 @@ public class CollectionHandler implements MarshalHandler<Collection> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection readObject(OInputStream in, Class<Collection> clazz) throws IOException {
+	public Collection readObject(OInput in, Class<Collection> clazz) throws IOException {
 		Collection collection;
 		try {
 			collection = clazz.newInstance();

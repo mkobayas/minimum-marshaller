@@ -22,8 +22,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -34,7 +34,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class LinkedBlockingQueueHandler implements MarshalHandler<LinkedBlockingQueue> {
 	
 	@Override
-	public void writeObject(OOutputStream2 out, LinkedBlockingQueue queue) throws IOException {
+	public void writeObject(OOutput out, LinkedBlockingQueue queue) throws IOException {
 		// LinkedBlockingQueueの内部ReentrantLockを利用する必要があるか？
 		
 		// capacity
@@ -51,7 +51,7 @@ public class LinkedBlockingQueueHandler implements MarshalHandler<LinkedBlocking
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public LinkedBlockingQueue readObject(OInputStream in, Class<LinkedBlockingQueue> clazz) throws IOException {
+	public LinkedBlockingQueue readObject(OInput in, Class<LinkedBlockingQueue> clazz) throws IOException {
 		int capacity = NaturalNumberIoHelper.readNaturalNumber(in);
 		LinkedBlockingQueue queue = new LinkedBlockingQueue(capacity);
 		

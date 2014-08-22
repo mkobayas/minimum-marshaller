@@ -23,8 +23,8 @@ import java.util.PriorityQueue;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -35,7 +35,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class PriorityQueueHandler implements MarshalHandler<PriorityQueue> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, PriorityQueue queue) throws IOException {
+	public void writeObject(OOutput out, PriorityQueue queue) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, queue.size());
 		out.writeObject(queue.comparator());
 		for(Object element : queue) {
@@ -45,7 +45,7 @@ public class PriorityQueueHandler implements MarshalHandler<PriorityQueue> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PriorityQueue readObject(OInputStream in, Class<PriorityQueue> clazz) throws IOException {
+	public PriorityQueue readObject(OInput in, Class<PriorityQueue> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		
 		Comparator comparator = (Comparator)in.readObject();

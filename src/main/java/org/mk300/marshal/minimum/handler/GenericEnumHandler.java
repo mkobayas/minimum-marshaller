@@ -21,8 +21,8 @@ import java.io.IOException;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -33,12 +33,12 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class GenericEnumHandler implements MarshalHandler<Enum> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, Enum e) throws IOException {
+	public void writeObject(OOutput out, Enum e) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, e.ordinal());
 	}
 
 	@Override
-	public Enum readObject(OInputStream in, Class<Enum> clazz) throws IOException {
+	public Enum readObject(OInput in, Class<Enum> clazz) throws IOException {
 		int o = NaturalNumberIoHelper.readNaturalNumber(in);
 		Enum e = clazz.getEnumConstants()[o];
 		return e;

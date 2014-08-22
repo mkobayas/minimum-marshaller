@@ -1,14 +1,11 @@
 package org.mk300.marshal.minimum.test;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Array;
 
 import org.apache.commons.io.HexDump;
 import org.mk300.marshal.minimum.MinimumMarshaller;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
 
 public class TestUtil {
 
@@ -85,29 +82,29 @@ public class TestUtil {
 		
 
 		// おまけ 普通のByteArray*Streamも使えるか？
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			OOutputStream oos = new OOutputStream(baos);
-			oos.writeObject(target);
-			byte[] bytes = baos.toByteArray();
-			
-			
-			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-			OInputStream ois = new OInputStream(bais);
-			Object o = ois.readObject();
-			
-			
-			// 正確に復元されていることの検証
-			int size = Array.getLength(target);
-			for(int i=0; i< size; i++) {
-				Object original = Array.get(target, i);
-				Object ret = Array.get(o, i);
-				if( ! original.equals(ret) ) {
-					throw new RuntimeException("配列オブジェクトが異なります。" + target );
-				}
-			}
-			
-		} finally {
-		}
+//		try {
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			OOutputStream oos = new OOutputStream(baos);
+//			oos.writeObject(target);
+//			byte[] bytes = baos.toByteArray();
+//			
+//			
+//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//			OInputStream ois = new OInputStream(bais);
+//			Object o = ois.readObject();
+//			
+//			
+//			// 正確に復元されていることの検証
+//			int size = Array.getLength(target);
+//			for(int i=0; i< size; i++) {
+//				Object original = Array.get(target, i);
+//				Object ret = Array.get(o, i);
+//				if( ! original.equals(ret) ) {
+//					throw new RuntimeException("配列オブジェクトが異なります。" + target );
+//				}
+//			}
+//			
+//		} finally {
+//		}
 	}
 }

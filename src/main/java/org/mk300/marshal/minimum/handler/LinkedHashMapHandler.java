@@ -27,8 +27,8 @@ import java.util.Set;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -60,7 +60,7 @@ public class LinkedHashMapHandler implements MarshalHandler<LinkedHashMap> {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void writeObject(OOutputStream2 out, LinkedHashMap map) throws IOException {
+	public void writeObject(OOutput out, LinkedHashMap map) throws IOException {
 		
 		float loadFactor;
 		boolean accessOrder;
@@ -84,7 +84,7 @@ public class LinkedHashMapHandler implements MarshalHandler<LinkedHashMap> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public LinkedHashMap readObject(OInputStream in, Class<LinkedHashMap> clazz) throws IOException {
+	public LinkedHashMap readObject(OInput in, Class<LinkedHashMap> clazz) throws IOException {
 		float loadFactor = in.readFloat();
 		boolean accessOrder = in.readBoolean();
 		

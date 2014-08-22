@@ -23,8 +23,8 @@ import java.util.TreeSet;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -35,7 +35,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class TreeSetHandler implements MarshalHandler<TreeSet> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, TreeSet treeSet) throws IOException {
+	public void writeObject(OOutput out, TreeSet treeSet) throws IOException {
 		out.writeObject(treeSet.comparator());
 		NaturalNumberIoHelper.writeNaturalNumber(out, treeSet.size());
 		for(Object element : treeSet) {
@@ -45,7 +45,7 @@ public class TreeSetHandler implements MarshalHandler<TreeSet> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public TreeSet readObject(OInputStream in, Class<TreeSet> clazz) throws IOException {
+	public TreeSet readObject(OInput in, Class<TreeSet> clazz) throws IOException {
 		Comparator comparator = (Comparator)in.readObject();
 		TreeSet treeSet = new TreeSet(comparator);
 		

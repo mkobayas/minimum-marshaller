@@ -21,8 +21,8 @@ import java.io.IOException;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -32,7 +32,7 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class StringArrayHandler implements MarshalHandler<String[]> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, String[] array) throws IOException {
+	public void writeObject(OOutput out, String[] array) throws IOException {
 		NaturalNumberIoHelper.writeNaturalNumber(out, array.length);
 		for(int i=0; i< array.length; i++ ) {
 			out.writeString(array[i]);
@@ -40,7 +40,7 @@ public class StringArrayHandler implements MarshalHandler<String[]> {
 	}
 
 	@Override
-	public String[] readObject(OInputStream in, Class<String[]> clazz) throws IOException {
+	public String[] readObject(OInput in, Class<String[]> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		
 		String[] array = new String[size];

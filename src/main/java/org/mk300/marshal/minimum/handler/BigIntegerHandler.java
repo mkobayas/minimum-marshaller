@@ -22,8 +22,8 @@ import java.math.BigInteger;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream2;
+import org.mk300.marshal.minimum.io.OInput;
+import org.mk300.marshal.minimum.io.OOutput;
 
 /**
  * 
@@ -33,14 +33,14 @@ import org.mk300.marshal.minimum.io.OOutputStream2;
 public class BigIntegerHandler implements MarshalHandler<BigInteger> {
 
 	@Override
-	public void writeObject(OOutputStream2 out, BigInteger number) throws IOException {
+	public void writeObject(OOutput out, BigInteger number) throws IOException {
 		byte[] bytes = number.toByteArray();
 		NaturalNumberIoHelper.writeNaturalNumber(out, bytes.length);
 		out.write(bytes);
 	}
 
 	@Override
-	public BigInteger readObject(OInputStream in, Class<BigInteger> clazz) throws IOException {
+	public BigInteger readObject(OInput in, Class<BigInteger> clazz) throws IOException {
 		int size = NaturalNumberIoHelper.readNaturalNumber(in);
 		byte[] bytes = new byte[size];
 		in.readFully(bytes);

@@ -1,14 +1,11 @@
 package org.mk300.marshal.minimum.test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import org.apache.commons.io.HexDump;
 import org.junit.Test;
 import org.mk300.marshal.minimum.MinimumMarshaller;
-import org.mk300.marshal.minimum.io.OInputStream;
-import org.mk300.marshal.minimum.io.OOutputStream;
 
 public class AtomicIntegerArrayTest {
 
@@ -54,31 +51,31 @@ public class AtomicIntegerArrayTest {
 		}
 		
 		// おまけ 普通のByteArray*Streamも使えるか？
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			OOutputStream oos = new OOutputStream(baos);
-			
-			oos.writeObject(target);
-			
-			byte[] bytes = baos.toByteArray();
-			
-			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-			OInputStream ois = new OInputStream(bais);
-			
-			AtomicIntegerArray o = (AtomicIntegerArray)ois.readObject();
-			
-			// 正確に復元されていることの検証
-			if( o.length() != target.length()) {
-				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-			}
-			for(int i=0; i<target.length() ; i++) {
-				if( o.get(i) != target.get(i)) {
-					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
-					
-				}
-			}
-			
-		} finally {
-		}
+//		try {
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			OOutputStream oos = new OOutputStream(baos);
+//			
+//			oos.writeObject(target);
+//			
+//			byte[] bytes = baos.toByteArray();
+//			
+//			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//			OInputStream ois = new OInputStream(bais);
+//			
+//			AtomicIntegerArray o = (AtomicIntegerArray)ois.readObject();
+//			
+//			// 正確に復元されていることの検証
+//			if( o.length() != target.length()) {
+//				throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//			}
+//			for(int i=0; i<target.length() ; i++) {
+//				if( o.get(i) != target.get(i)) {
+//					throw new RuntimeException("オブジェクトが異なります。target=" + target + ", desr=" + o);
+//					
+//				}
+//			}
+//			
+//		} finally {
+//		}
 	}
 }
