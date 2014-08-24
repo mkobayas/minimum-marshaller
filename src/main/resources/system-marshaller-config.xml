@@ -44,7 +44,7 @@
 	<class-mapping id="25" handler="org.mk300.marshal.minimum.handler.AtomicReferenceArrayHandler"  class="java.util.concurrent.atomic.AtomicReferenceArray" />
 	
 	<!-- Collection (List/Set) -->
-	<class-mapping id="101" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.ArrayList"/>
+	<class-mapping id="101" handler="org.mk300.marshal.minimum.handler.ArrayListHandler" class="java.util.ArrayList"/>
 	<class-mapping id="102" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.LinkedList" />
 	<class-mapping id="103" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.concurrent.CopyOnWriteArrayList"/>
 	<class-mapping id="105" handler="org.mk300.marshal.minimum.handler.CollectionHandler" class="java.util.Vector"/>
