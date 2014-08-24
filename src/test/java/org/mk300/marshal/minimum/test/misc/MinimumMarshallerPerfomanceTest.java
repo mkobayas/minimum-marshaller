@@ -95,6 +95,7 @@ public class MinimumMarshallerPerfomanceTest {
 		for(int i=0; i<threadNum ; i++) {
 			Thread t = new Thread(new Runnable() {
 				long p1, p2, p3, p4, p5;
+				@SuppressWarnings("unused")
 				public long sum(){return p1+p2+p3+p4+p5;} // avoid false sharing.
 				@Override
 				public void run() {

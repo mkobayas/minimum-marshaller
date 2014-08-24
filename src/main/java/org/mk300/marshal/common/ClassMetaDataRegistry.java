@@ -51,7 +51,7 @@ public class ClassMetaDataRegistry {
 	 * また、transient、又はstaticで修飾されたプロパティはリストから除外されている。<br>
 	 * 
 	 * @param clazz
-	 * @return
+	 * @return Field[]
 	 */
 	public static Field[] getFieldList(Class<?> clazz) {
 		Field[] fields = null;

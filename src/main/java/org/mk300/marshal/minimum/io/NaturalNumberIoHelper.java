@@ -99,7 +99,7 @@ public final class NaturalNumberIoHelper {
 	/**
 	 * DataInputStreamに対して、可変バイト数の自然数の読込みを実施する。
 	 * @param dis
-	 * @return
+	 * @return 読み込んだ自然数
 	 * @throws IOException
 	 */
 	public static final int readNaturalNumber(OInput dis) throws IOException {

@@ -261,6 +261,7 @@ public final class OOutputImpl implements OOutput {
 	public final byte[] toBytes () {
 		byte[] b = new byte[pos];
 		System.arraycopy(buf, 0, b, 0, pos);
+		pos = 0;
 		return b;
 	}
 

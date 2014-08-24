@@ -18,7 +18,6 @@ package org.mk300.marshal.minimum.handler;
 
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.common.TheUnsafe;
@@ -28,8 +27,6 @@ import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.io.NaturalNumberIoHelper;
 import org.mk300.marshal.minimum.io.OInput;
 import org.mk300.marshal.minimum.io.OOutput;
-
-import sun.misc.Unsafe;
 
 
 /**

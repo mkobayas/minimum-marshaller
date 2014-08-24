@@ -51,7 +51,7 @@ public class UnsafeClassMetaDataRegistry {
 	 * また、transient、又はstaticで修飾されたプロパティはリストから除外されている。<br>
 	 * 
 	 * @param clazz
-	 * @return
+	 * @return UnsafeFieldAccessor[]
 	 */
 	public static UnsafeFieldAccessor[] getFieldList(Class<?> clazz) {
 		UnsafeFieldAccessor[] fields = null;
