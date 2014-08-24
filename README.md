@@ -216,22 +216,22 @@ yaml/jackson/databind                  68   20363   30370   50733    505   260
 
 Ser and Deser per second
 
-<img src="http://goo.gl/NErSZA"/>
+<img src="http://goo.gl/x0bMb5"/>
 
 ```
 Benchmark                                           Mode   Samples        Score  Score error    Units
-o.m.m.b.KryoBench.t1_marshalling                   thrpt         2    30164.715          NaN    ops/s
-o.m.m.b.KryoBench.t2_unmarshalling                 thrpt         2    24577.007          NaN    ops/s
-o.m.m.b.KryoBench.t3_mix                           thrpt         2    23613.027          NaN    ops/s
-o.m.m.b.KryoThreadLocalBench.t1_marshalling        thrpt         2  1350733.807          NaN    ops/s
-o.m.m.b.KryoThreadLocalBench.t2_unmarshalling      thrpt         2   772404.799          NaN    ops/s
-o.m.m.b.KryoThreadLocalBench.t3_mix                thrpt         2   607723.728          NaN    ops/s
-o.m.m.b.MessagePackBench.t1_marshalling            thrpt         2   963043.104          NaN    ops/s
-o.m.m.b.MessagePackBench.t2_unmarshalling          thrpt         2   575063.274          NaN    ops/s
-o.m.m.b.MessagePackBench.t3_mix                    thrpt         2   353768.814          NaN    ops/s
-o.m.m.b.MinimumMarshallerBench.t1_marshalling      thrpt         2   893615.846          NaN    ops/s
-o.m.m.b.MinimumMarshallerBench.t2_unmarshalling    thrpt         2   771744.119          NaN    ops/s
-o.m.m.b.MinimumMarshallerBench.t3_mix              thrpt         2   402507.300          NaN    ops/s
+o.m.m.b.KryoBench.t1_marshalling                   thrpt         2   126734.829          NaN    ops/s
+o.m.m.b.KryoBench.t2_unmarshalling                 thrpt         2    40421.264          NaN    ops/s
+o.m.m.b.KryoBench.t3_mix                           thrpt         2    34864.697          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t1_marshalling        thrpt         2  5687542.725          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t2_unmarshalling      thrpt         2  2993663.644          NaN    ops/s
+o.m.m.b.KryoThreadLocalBench.t3_mix                thrpt         2  2397184.197          NaN    ops/s
+o.m.m.b.MessagePackBench.t1_marshalling            thrpt         2  3620089.799          NaN    ops/s
+o.m.m.b.MessagePackBench.t2_unmarshalling          thrpt         2  2462151.449          NaN    ops/s
+o.m.m.b.MessagePackBench.t3_mix                    thrpt         2  1479946.532          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t1_marshalling      thrpt         2  4908116.999          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t2_unmarshalling    thrpt         2  5099147.163          NaN    ops/s
+o.m.m.b.MinimumMarshallerBench.t3_mix              thrpt         2  2488325.064          NaN    ops/s
 ```
 
 
