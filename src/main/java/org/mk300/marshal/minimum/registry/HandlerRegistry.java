@@ -158,6 +158,19 @@ public class HandlerRegistry {
 		return id;
 	}
 
+	public static boolean isDefined(Object pojo) {
+		if(pojo == null) {
+			return true;
+		}
+		Short id = classIdRMap.get(pojo.getClass());
+		return id == null ? false : true ;
+	}
+	
+	public static boolean isDefined(Class<?> clazz) {
+		Short id = classIdRMap.get(clazz);
+		return id == null ? false : true ;
+	}
+	
 	
 	public static Class<?> getObjClass(short id) {
 		Class<?> clazz = classMap.get(id);

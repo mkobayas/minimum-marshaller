@@ -22,6 +22,7 @@ import java.io.IOException;
 import org.mk300.marshal.common.InfiniteLoopException;
 import org.mk300.marshal.common.MarshalException;
 import org.mk300.marshal.minimum.MarshalHandler;
+import org.mk300.marshal.minimum.handler.GenericArrayHandler;
 import org.mk300.marshal.minimum.handler.ObjectHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
@@ -33,6 +34,7 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
 public final class OOutputImpl implements OOutput {
 	
 	private final static ObjectHandler undefinedPojoClassHandler = new ObjectHandler();
+	private static final GenericArrayHandler undefinedGenericArrayClassHandler = new GenericArrayHandler();
 	
 	/**
 	 * 循環参照があった場合に、無限ループに陥るのを防止する為のカウンタの上限
@@ -194,7 +196,11 @@ public final class OOutputImpl implements OOutput {
 			if(id == HandlerRegistry.ID_UNDEFINED_POJO) {				
 				writeShort(HandlerRegistry.ID_UNDEFINED_POJO);	
 				writeString(oClazz.getName());
-				m = undefinedPojoClassHandler;
+				if(oClazz.isArray()) {
+					m = undefinedGenericArrayClassHandler;
+				} else {
+					m = undefinedPojoClassHandler;
+				}
 			} else {
 				writeShort(id);
 				m = HandlerRegistry.getMarshallHandler(id);

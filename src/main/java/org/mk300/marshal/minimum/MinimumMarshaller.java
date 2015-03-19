@@ -26,6 +26,7 @@ import org.mk300.marshal.minimum.io.OInput;
 import org.mk300.marshal.minimum.io.OInputImpl;
 import org.mk300.marshal.minimum.io.OOutput;
 import org.mk300.marshal.minimum.io.OOutputImpl;
+import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
 
 /**
@@ -93,5 +94,14 @@ public class MinimumMarshaller {
         }
 		OInput oi = new OInputImpl(buf);
 		return oi.readObject();
+	}
+	
+	public static boolean isDefined(Class<?> clazz) {
+		return HandlerRegistry.isDefined(clazz);
+	}
+
+
+	public static boolean isDefined(Object pojo) {
+		return HandlerRegistry.isDefined(pojo);
 	}
 }

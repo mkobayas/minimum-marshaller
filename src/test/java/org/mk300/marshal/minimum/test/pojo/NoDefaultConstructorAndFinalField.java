@@ -6,7 +6,7 @@ package org.mk300.marshal.minimum.test.pojo;
 public class NoDefaultConstructorAndFinalField {
 
 	private String p1 = "Hello";
-	private String p2 = "World";
+	private final String p2;
 	
 	public NoDefaultConstructorAndFinalField(String p1, String p2) {
 		this.p1 = p1;
@@ -25,9 +25,6 @@ public class NoDefaultConstructorAndFinalField {
 		return p2;
 	}
 
-	public void setP2(String p2) {
-		this.p2 = p2;
-	}
 
 	@Override
 	public int hashCode() {
