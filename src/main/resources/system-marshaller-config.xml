@@ -96,7 +96,7 @@
 	<class-mapping id="308" handler="org.mk300.marshal.minimum.handler.PrimitiveWrapperHandler" class="java.lang.Byte"/>
 	
 	
-	<!-- boolean[] -->
+	<!-- byte[] -->
 	<class-mapping id="401" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[B"/>
 	<!-- short[] -->
 	<class-mapping id="402" handler="org.mk300.marshal.minimum.handler.PrimitiveArrayHandler" class="[S"/>
@@ -116,5 +116,67 @@
 	<class-mapping id="409" handler="org.mk300.marshal.minimum.handler.ObjectArrayHandler"    class="[Ljava.lang.Object;"/>
 	<!-- String[] -->	
 	<class-mapping id="410" handler="org.mk300.marshal.minimum.handler.StringArrayHandler"    class="[Ljava.lang.String;"/>
+	
+	
+	<!-- GenericArrayHandler generates bigger binary compare to specific array handler, but is generic..-->
+	<!-- byte[]* -->
+	<class-mapping id="411" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[B"/>
+	<class-mapping id="412" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[B"/>
+	<class-mapping id="413" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[B"/>
+	<class-mapping id="414" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[B"/>
+	
+	<!-- short[]* -->
+	<class-mapping id="415" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[S"/>
+	<class-mapping id="416" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[S"/>
+	<class-mapping id="417" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[S"/>
+	<class-mapping id="418" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[S"/>
+	
+	<!-- int[]* -->
+	<class-mapping id="419" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[I"/>
+	<class-mapping id="420" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[I"/>
+	<class-mapping id="421" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[I"/>
+	<class-mapping id="422" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[I"/>
+	
+	<!-- long[]* -->
+	<class-mapping id="423" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[J"/>
+	<class-mapping id="424" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[J"/>
+	<class-mapping id="425" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[J"/>
+	<class-mapping id="426" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[J"/>
+	
+	<!-- boolean[]* -->
+	<class-mapping id="427" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[Z"/>
+	<class-mapping id="428" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[Z"/>
+	<class-mapping id="429" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[Z"/>
+	<class-mapping id="430" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[Z"/>
+	
+	<!-- float[]* -->
+	<class-mapping id="431" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[F"/>
+	<class-mapping id="432" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[F"/>
+	<class-mapping id="433" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[F"/>
+	<class-mapping id="434" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[F"/>
+	
+	<!-- double[]* -->
+	<class-mapping id="435" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[D"/>
+	<class-mapping id="436" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[D"/>
+	<class-mapping id="437" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[D"/>
+	<class-mapping id="438" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[D"/>
+	
+	<!-- char[]* -->
+	<class-mapping id="439" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[C"/>
+	<class-mapping id="440" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[C"/>
+	<class-mapping id="441" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[C"/>
+	<class-mapping id="442" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[C"/>
+	
+	<!-- Object[]* -->
+	<class-mapping id="443" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[Ljava.lang.Object;"/>
+	<class-mapping id="444" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[Ljava.lang.Object;"/>
+	<class-mapping id="445" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[Ljava.lang.Object;"/>
+	<class-mapping id="446" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[Ljava.lang.Object;"/>
+	
+	<!-- String[]* -->
+	<class-mapping id="447" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[Ljava.lang.String;"/>
+	<class-mapping id="448" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[Ljava.lang.String;"/>
+	<class-mapping id="449" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[Ljava.lang.String;"/>
+	<class-mapping id="450" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[Ljava.lang.String;"/>
 	
 </minimum-marshaller>

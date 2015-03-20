@@ -124,7 +124,7 @@ public final class ObjectHandler implements MarshalHandler<Object> {
 		UnsafeFieldAccessor currentProcessfeild = null; // エラー時のメッセージ出力用。
 		
 		try {
-
+			
 			Object data = TheUnsafe.unsafe.allocateInstance(clazz);
 			
 			int binarySize = in.readInt();

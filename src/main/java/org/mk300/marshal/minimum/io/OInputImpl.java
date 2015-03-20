@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.UTFDataFormatException;
 
 import org.mk300.marshal.minimum.MarshalHandler;
+import org.mk300.marshal.minimum.handler.GenericArrayHandler;
 import org.mk300.marshal.minimum.handler.ObjectHandler;
 import org.mk300.marshal.minimum.registry.HandlerRegistry;
 
@@ -32,6 +33,7 @@ import org.mk300.marshal.minimum.registry.HandlerRegistry;
 public final class OInputImpl implements OInput{
 
 	private static final ObjectHandler undefinedPojoClassHandler = new ObjectHandler();
+	private static final GenericArrayHandler undefinedGenericArrayClassHandler = new GenericArrayHandler();
 	
 	private byte[] buf;
 	private int pos;
@@ -69,7 +71,11 @@ public final class OInputImpl implements OInput{
 			// Enum is handled by special handler.
 			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
 		} else if(id == HandlerRegistry.ID_UNDEFINED_POJO) {
-			m = undefinedPojoClassHandler;
+			if(c.isArray()) {
+				m = undefinedGenericArrayClassHandler;
+			} else {
+				m = undefinedPojoClassHandler;
+			}
 		} else {
 			m = HandlerRegistry.getMarshallHandler(id);
 		}
