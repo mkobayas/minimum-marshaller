@@ -44,6 +44,7 @@ public class HandlerRegistry {
 	public static short ID_ENUM = 1;
 	public static short ID_UNDEFINED_POJO = 2;
 	public static short ID_UNDEFINED_ENUM = 3;
+    public static short ID_LAMBDA = 4;
 	
 	private static boolean allowUndefined = true;
 	
