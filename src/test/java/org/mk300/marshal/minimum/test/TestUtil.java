@@ -52,6 +52,25 @@ public class TestUtil {
 		}
 	}
 	
+
+    public static <T> T testAndPrintHex(T target) throws Exception{
+        try {
+
+            byte[] bytes = MinimumMarshaller.marshal(target);
+            
+            System.out.println(target.getClass().getSimpleName() + " binary size is " + bytes.length);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            HexDump.dump(bytes, 0, os, 0);
+            System.out.println(os.toString());
+            System.out.println("");
+            
+            return (T) MinimumMarshaller.unmarshal(bytes);
+                        
+        } finally {
+        }
+        
+    }
+    
 	/**
 	 * 多次元配列ケースを考慮したチェック。<br>
 	 * POJOが多次元配列をフィールドとしてもつ場合は、POJOのequalsメソッドでこのメソッドを利用する事。

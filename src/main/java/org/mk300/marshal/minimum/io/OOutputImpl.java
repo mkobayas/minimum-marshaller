@@ -18,6 +18,8 @@ package org.mk300.marshal.minimum.io;
 
 
 import java.io.IOException;
+import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Method;
 
 import org.mk300.marshal.common.InfiniteLoopException;
 import org.mk300.marshal.common.MarshalException;
@@ -190,6 +192,17 @@ public final class OOutputImpl implements OOutput {
 			m = HandlerRegistry.getMarshallHandler(HandlerRegistry.ID_ENUM);
 			m.writeObject(this, o);
 			
+		} else if(oClazz.getName().indexOf('/') >= 0) { // lambda instance
+		    SerializedLambda sLambda;
+		    try {
+		        Method writeReplace = oClazz.getDeclaredMethod("writeReplace");
+		        writeReplace.setAccessible(true);
+		        sLambda = (SerializedLambda)writeReplace.invoke(o);
+		    } catch (Exception e) {
+		        throw new IOException(e);
+		    }
+		    writeShort(HandlerRegistry.ID_LAMBDA);
+		    undefinedPojoClassHandler.writeObject(this, sLambda);
 		} else {
 			short id = HandlerRegistry.getClassId(oClazz);
 		

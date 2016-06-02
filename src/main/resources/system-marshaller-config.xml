@@ -23,6 +23,7 @@
      1 はenum型で予約されています。
      2 はUndefined POJOで予約されています。
      3 はUndefined enumで予約されています。
+     4 はserializable lambdaで予約されています。
     -->
 	<class-mapping id="1" handler="org.mk300.marshal.minimum.handler.GenericEnumHandler" class="java.lang.Enum"/>
     
@@ -179,4 +180,6 @@
 	<class-mapping id="449" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[Ljava.lang.String;"/>
 	<class-mapping id="450" handler="org.mk300.marshal.minimum.handler.GenericArrayHandler" class="[[[[[Ljava.lang.String;"/>
 	
+    <class-mapping id="460" handler="org.mk300.marshal.minimum.handler.ClassHandler" class="java.lang.Class"/>
+    
 </minimum-marshaller>

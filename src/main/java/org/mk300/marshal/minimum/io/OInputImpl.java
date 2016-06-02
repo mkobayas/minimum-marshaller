@@ -19,6 +19,8 @@ package org.mk300.marshal.minimum.io;
 
 import java.io.IOException;
 import java.io.UTFDataFormatException;
+import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Method;
 
 import org.mk300.marshal.minimum.MarshalHandler;
 import org.mk300.marshal.minimum.handler.GenericArrayHandler;
@@ -34,6 +36,16 @@ public final class OInputImpl implements OInput{
 
 	private static final ObjectHandler undefinedPojoClassHandler = new ObjectHandler();
 	private static final GenericArrayHandler undefinedGenericArrayClassHandler = new GenericArrayHandler();
+	
+    private static Method readResolve;
+    static {
+        try {
+            readResolve = SerializedLambda.class.getDeclaredMethod("readResolve");
+            readResolve.setAccessible(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	private byte[] buf;
 	private int pos;
@@ -63,6 +75,8 @@ public final class OInputImpl implements OInput{
 			} catch (ClassNotFoundException e) {
 				throw new IOException(e);
 			}
+		} else if(id == HandlerRegistry.ID_LAMBDA) {
+		    c = SerializedLambda.class;
 		} else {
 			c = HandlerRegistry.getObjClass(id);
 		}
@@ -76,11 +90,21 @@ public final class OInputImpl implements OInput{
 			} else {
 				m = undefinedPojoClassHandler;
 			}
+		} else if(id == HandlerRegistry.ID_LAMBDA) {
+		    m = undefinedPojoClassHandler;
 		} else {
 			m = HandlerRegistry.getMarshallHandler(id);
 		}
 		
 		Object obj = m.readObject(this, c);
+		if(id == HandlerRegistry.ID_LAMBDA) {
+		    try {
+                obj = readResolve.invoke(obj);
+            } catch (Exception e) {
+                throw new IOException(e);
+            }
+		}
+		
 		return obj;
 
 	}
